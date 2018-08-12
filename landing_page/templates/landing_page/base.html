@@ -76,28 +76,33 @@
         <br>
         <div class="navigation">
             <nav class="navbar navbar-expand-sm bg-transparent navbar-light" style="padding-top: 20px">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
               <!-- Navbar links -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- index -->
-                    {% url 'index' as index %}
-                    {% if request.path == index %}
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'index' %}"><span class="menu__label hover7-active__label">About</span></a></li>
-                    {% else %}
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'index' %}"><span class="menu__label hover7__label">About</span></a></li>
-                    {% endif %}
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- index -->
+                        {% url 'index' as index %}
+                        {% if request.path == index %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'index' %}"><span class="menu__label hover7-active__label">About</span></a></li>
+                        {% else %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'index' %}"><span class="menu__label hover7__label">About</span></a></li>
+                        {% endif %}
 
-                    <!-- CV -->
-                    {% url 'cv' as cv %}
-                    {% if request.path == cv %}
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'cv' %}"><span class="menu__label hover7-active__label">Resume</span></a></li>
-                    {% else %}
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'cv' %}"><span class="menu__label hover7__label">Resume</span></a></li>
-                    {% endif %}
+                        <!-- CV -->
+                        {% url 'cv' as cv %}
+                        {% if request.path == cv %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'cv' %}"><span class="menu__label hover7-active__label">Resume</span></a></li>
+                        {% else %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'cv' %}"><span class="menu__label hover7__label">Resume</span></a></li>
+                        {% endif %}
 
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Portfolio</span></a></li>
-                    <!--<li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Blog</span></a></li>-->
-                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Contact</span></a></li>
-                </ul>
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Portfolio</span></a></li>
+                        <!--<li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Blog</span></a></li>-->
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Contact</span></a></li>
+                    </ul>
+                </div>
             </nav>
         </div>
         <br><br>
