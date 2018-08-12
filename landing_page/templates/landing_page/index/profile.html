@@ -1,0 +1,40 @@
+{% load static %}
+{% load svg %}
+
+<div class="container">
+    <div class="col-md-6" style="display: inline-block; width: 100%; height: 100%; float: left; padding-top: 50px;">
+        <img class="img-fluid" src="{% static profile_picture %}" alt="Photo">
+    </div>
+    <div class="col-md-6 hello" style="display: inline-block; width: 100%; height: 100%; float: right;">
+        <div class="col-md-12" style="padding-top: 50px">
+            <h1 id="hello-svg">{% svg 'hello' %}</h1>
+            <p id="welcome">I'm <span style="font-weight: 900">{{ firstname }} {{lastname}}</span></p>
+            <p>Python Developer</p>
+            <hr>
+        </div>
+        <div class="col-md-6 col-one" style="display: inline-block; width: 100%; height: 100%; float: left; text-transform: uppercase; ">
+            <p>age: </p>
+            <p>address: </p>
+            <p>phone: </p>
+            <p>email: </p>
+            <hr>
+            <p>freelance: </p>
+            {% if on_vacation == 'Yes' %}
+            <p>On vacation: </p>
+            {% endif %}
+            <br>
+        </div>
+        <div class="col-md-6 col-two" style="display: inline-block; width: 100%; height: 100%; float: left;">
+            <p>{{ age }}</p>
+            <p>{{ address }}</p>
+            <p style="font-family: 'Montserrat'"><a href="tel:{{ legit_phone }}">{{ phone }}</a></p>
+            <p><a href="mailto:{{ email }}">{{ email }}</a></p>
+            <hr>
+            <p>{{ freelance }}</p>
+            {% if on_vacation == 'Yes' %}
+            <p>till {{ vacation_till }}</p>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+</div>

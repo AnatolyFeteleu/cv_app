@@ -1,0 +1,7 @@
+django-phonenumber-field
+djangorestframework
+django-compressor
+django-libsass
+django-sass-processor
+django-inline-svg
+python-dateutil

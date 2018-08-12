@@ -1,0 +1,77 @@
+{% load static %}
+{% load compress %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>CV - Anatoly Feteleu</title>
+
+        <!-- menu font -->
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+        <!-- font in block font -->
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+        <!-- font for table -->
+        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+
+        <!-- regular font -->
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+        <!-- compress stylesheets -->
+        {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/index.scss' %}">
+        <!-- include stylesheet for make links looks more better -->
+        <link rel="stylesheet" href="{% static 'css/css-effects.css' %}">
+        {% endcompress %}
+
+         <!-- Latest compiled and minified bootstrap CSS -->
+        {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap4/bootstrap.min.4.1.3.css' %}">
+        {% endcompress %}
+
+        {% compress js %}
+        <!-- jQuery library -->
+        <script src="{% static 'js/bootstrap4/bootstrap.min.4.1.3.js' %}"></script>
+
+        <!-- Popper JS -->
+        <script src="{% static 'js/popper.min.1.14.3.js' %}"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="{% static 'js/bootstrap4/bootstrap.min.4.1.3.js' %}"></script>
+        {% endcompress %}
+
+        <style>
+        /* Fixes dropdown menus placed on the right side */
+        .ml-auto .dropdown-menu {
+          left: auto !important;
+          right: 0px;
+        }
+        </style>
+    </head>
+    <body style="background-image: url({% static 'img/landing-page-background-image-red.jpg' %}); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover;">
+        <br>
+        <div class="navigation">
+            <nav class="navbar navbar-expand-sm bg-transparent navbar-light" style="padding-top: 20px">
+              <!-- Navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">About</span></a></li>
+                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Resume</span></a></li>
+                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Portfolio</span></a></li>
+                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Blog</span></a></li>
+                    <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Contact</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <br><br>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

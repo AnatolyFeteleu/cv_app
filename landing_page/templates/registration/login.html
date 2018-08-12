@@ -1,0 +1,35 @@
+{% extends 'landing_page/base-alt.html' %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p style="color: red; position: fixed; right: 42.5%; top: 225px; font-style: italic">Your username and password didn't match. Please try again.</p>
+        <br>
+    {% endif %}
+
+    <br><br>
+    <div class="col-md-12" style="color: #f0f0f0; text-align: center; margin: auto;">
+        <form method="post" action="{% url 'login' %}" class="login">
+            {% csrf_token %}
+            <h3 style="text-align: center; font-size: 36px">Login</h3><br>
+            <table>
+                <tr>
+                    <td style="text-align: center; font-size: 22px">{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 22px">{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            <br>
+            <div class="col-md-4" style="display: inline-block; width: 100%; height: 100%;"></div>
+            <div class="col-md-4" style="display: inline-block; width: 100%; height: 100%; text-align: center; margin: auto;">
+                <input type="submit" value="OK" style="font-size: 22px;"/>
+                <input type="hidden" name="next" value="{{ next }}" /></div>
+            <div class="col-md-4" style="display: inline-block; width: 100%; height: 100%;"></div>
+        </form>
+
+    </div>
+
+{% endblock %}
