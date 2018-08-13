@@ -1,0 +1,7 @@
+@media screen and (max-width: 350px){
+
+  .cv-table {
+        background-color: red !important;
+        color: red !important;
+        }
+}
