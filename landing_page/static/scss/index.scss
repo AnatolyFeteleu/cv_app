@@ -89,3 +89,13 @@ ul {
         font-size: 21px;
     }
 }
+
+.table table td:first-child{
+    text-transform: uppercase;
+}
+
+.table table td{
+    height: 100%;
+    width: 100%;
+}
+

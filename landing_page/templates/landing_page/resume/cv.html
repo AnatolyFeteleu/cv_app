@@ -10,11 +10,11 @@
     </div>
     <div class="col-md-12 cv-headings">
         <div id="cv-table" class="table-responsible">
-            <table class="table table-borderless" style="margin: 50px">
+            <table class="table table-borderless" style="display: block; padding: 50px;">
                 <tbody>
                     <tr>
-                        <td class="font-weight-light"><p>Work experience</p></td>
-                        <td>
+                        <td class="font-weight-light"><p>Work experience:</p></td>
+                        <td class="text-center">
                             <ul>
                                 {% for i in experience %}
                                 <li><a href="{{ i.3 }}" data-toggle="tooltip" data-placement="right" title="{{ i.4 }}!">{{ i.0 }}</a>
@@ -28,16 +28,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-weight-light"><p>Key skills</p></td>
-                        <td>{{ key_skills }}</td>
+                        <td class="font-weight-light"><p>Key skills:</p></td>
+                        <td class="text-center">{{ key_skills }}</td>
                     </tr>
                     <tr>
-                        <td class="font-weight-light"><p>About me</p></td>
-                        <td>{{ about_me }}</td>
+                        <td class="font-weight-light"><p>About me:</p></td>
+                        <td class="text-center">{{ about_me }}</td>
                     </tr>
                     <tr>
-                        <td class="font-weight-light"><p>Higher education</p></td>
-                        <td>
+                        <td class="font-weight-light"><p>Higher education:</p></td>
+                        <td class="text-center">
                             <ul>
                                 {% for i in edu_list %}
                                 <li>{{ i.0 }}
@@ -51,8 +51,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-weight-light"><p>Languages</p></td>
-                        <td>
+                        <td class="font-weight-light"><p>Languages:</p></td>
+                        <td class="text-center">
                             <ul>
                                 {% for i in lang_list %}
                                 <li>{{ i.0 }}
@@ -66,21 +66,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-weight-light"><p>Citizenship, travel time to work</p></td>
-                        <td>
+                        <td class="font-weight-light"><p>Citizenship, travel time to work:</p></td>
+                        <td class="text-center">
                             <ul>
 
-                                <li>Citizenship
+                                <li>Citizenship:
                                     <ul>
                                         <li>{{ other.0.0 }}</li>
                                     </ul>
                                 </li>
-                                <li style="margin-top: 25px">Permission to work
+                                <li style="margin-top: 25px">Permission to work:
                                     <ul>
                                         <li>{{ other.0.1 }}</li>
                                     </ul>
                                 </li>
-                                <li style="margin-top: 25px">Desired travel time to work
+                                <li style="margin-top: 25px">Desired travel time to work:
                                     <ul>
                                         <li>{{ other.0.2 }}</li>
                                     </ul>
