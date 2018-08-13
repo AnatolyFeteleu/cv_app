@@ -14,7 +14,7 @@
                 <tbody>
                     <tr>
                         <td class="font-weight-light"><p>Work experience:</p></td>
-                        <td class="text-center">
+                        <td class="text-justify">
                             <ul>
                                 {% for i in experience %}
                                 <li><a href="{{ i.3 }}" data-toggle="tooltip" data-placement="right" title="{{ i.4 }}!">{{ i.0 }}</a>
@@ -29,15 +29,15 @@
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Key skills:</p></td>
-                        <td class="text-center">{{ key_skills }}</td>
+                        <td class="text-justify">{{ key_skills }}</td>
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>About me:</p></td>
-                        <td class="text-center">{{ about_me }}</td>
+                        <td class="text-justify">{{ about_me }}</td>
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Higher education:</p></td>
-                        <td class="text-center">
+                        <td class="text-justify">
                             <ul>
                                 {% for i in edu_list %}
                                 <li>{{ i.0 }}
@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Languages:</p></td>
-                        <td class="text-center">
+                        <td class="text-justify">
                             <ul>
                                 {% for i in lang_list %}
                                 <li>{{ i.0 }}
@@ -67,24 +67,17 @@
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Citizenship, travel time to work:</p></td>
-                        <td class="text-center">
+                        <td class="text-justify">
                             <ul>
-
-                                <li>Citizenship:
-                                    <ul>
-                                        <li>{{ other.0.0 }}</li>
-                                    </ul>
+                                {% for i in other %}
+                                <li><span class="font-italic">Citizenship:</span> {{ i.0 }}
                                 </li>
-                                <li style="margin-top: 25px">Permission to work:
-                                    <ul>
-                                        <li>{{ other.0.1 }}</li>
-                                    </ul>
+                                <li><span class="font-italic">Permission to work:</span> {{ i.1 }}
                                 </li>
-                                <li style="margin-top: 25px">Desired travel time to work:
-                                    <ul>
-                                        <li>{{ other.0.2 }}</li>
-                                    </ul>
+                                <li><span class="font-italic">Desired travel time to work:</span> {{ i.2 }}
                                 </li>
+                                <hr>
+                                {% endfor %}
 
                             </ul>
                         </td>

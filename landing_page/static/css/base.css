@@ -1,7 +1,21 @@
-@media screen and (max-width: 350px){
+@media screen and (max-width: 768px) {
+    /* no changes yet */
+}
 
-  .cv-table {
-        background-color: red !important;
-        color: red !important;
-        }
+@media screen and (max-width: 350px) {
+    table {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    /* no changes yet */
+}
+
+@media screen only and (max-width: 1200px) {
+    /* no changes yet */
+}
+
+@media screen only and (min-width: 1200px) {
+  /* no changes yet */
 }

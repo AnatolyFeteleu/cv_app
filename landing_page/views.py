@@ -126,6 +126,7 @@ def resume(request):
                 i.travel_to_work,
             ]
         )
+    # other_list = list(zip(*other_list))
     return render(request, 'landing_page/resume/resume.html', {
         'experience': exp_list,
         'key_skills': cv.key_skills,
