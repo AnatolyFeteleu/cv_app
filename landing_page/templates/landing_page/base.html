@@ -6,7 +6,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Anatoly Feteleu - {{request.path}}</title>
 
         <!-- menu font -->
@@ -24,7 +24,7 @@
         <!-- Font for numbers-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-        <!-- compress stylesheets -->
+        <!-- Latest stylesheets -->
         {% compress css %}
         <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/index.scss' %}">
 
@@ -36,16 +36,6 @@
 
         <!-- Latest compiled and minified bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap4/bootstrap.min.4.1.3.css' %}">
-        {% endcompress %}
-
-        <!-- Bootstrap library -->
-        {% compress js %}
-        <script type="text/javascript" src="{% static 'js/bootstrap4/bootstrap.min.4.1.3.js' %}"></script>
-        {% endcompress %}
-
-        <!-- Popper JS -->
-        {% compress js %}
-        <script type="text/javascript" src="{% static 'js/popper.min.1.14.3.js' %}"></script>
         {% endcompress %}
 
         <!-- Latest compiled JavaScript -->
