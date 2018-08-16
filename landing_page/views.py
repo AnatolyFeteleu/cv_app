@@ -136,3 +136,7 @@ def resume(request):
         'other': other_list,
     }
                   )
+
+
+def portfolio(request):
+    return render(request, 'landing_page/portfolio/portfolio.html')

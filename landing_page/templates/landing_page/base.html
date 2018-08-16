@@ -24,36 +24,40 @@
         <!-- Font for numbers-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-        <!-- Latest stylesheets -->
+
+        <!-- latest stylesheets -->
         {% compress css %}
         <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/index.scss' %}">
+        {% endcompress %}
 
         <!-- include stylesheet for make links looks more better -->
         <link rel="stylesheet" href="{% static 'css/css-effects.css' %}">
 
-        <!-- Base css stylesheet -->
+        <!-- lase css stylesheet -->
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-        <!-- Latest compiled and minified bootstrap CSS -->
+        <!-- latest compiled and minified bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap4/bootstrap.min.4.1.3.css' %}">
-        {% endcompress %}
 
-        <!-- Latest compiled JavaScript -->
+        <!-- widget CSS -->
+        <link rel="stylesheet" href="{% static 'css/widget/widget.css' %}">
+
+        <!-- latest compiled JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-        <!-- Popover -->
-        {% compress js %}
+        <!-- bootstrap 4 -->
+        <script type="text/javascript" src="{% static 'js/bootstrap4/bootstrap.min.4.1.3.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/popper.min.1.14.3.js' %}"></script>
+
+        <!-- popover -->
         <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
         </script>
-        {% endcompress %}
 
+        <!-- fixes dropdown menus placed on the right side  -->
         <style>
-        /* Fixes dropdown menus placed on the right side */
         .ml-auto .dropdown-menu {
           left: auto !important;
           right: 0px;
@@ -86,7 +90,14 @@
                         <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'cv' %}"><span class="menu__label hover7__label">Resume</span></a></li>
                         {% endif %}
 
-                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Portfolio</span></a></li>
+                        <!-- Portfolio -->
+                        {% url 'portfolio' as portfolio %}
+                        {% if request.path == portfolio %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'portfolio' %}"><span class="menu__label hover7-active__label">Portfolio</span></a></li>
+                        {% else %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'portfolio' %}"><span class="menu__label hover7__label">Portfolio</span></a></li>
+                        {% endif %}
+
                         <!--<li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Blog</span></a></li>-->
                         <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Contact</span></a></li>
                     </ul>
