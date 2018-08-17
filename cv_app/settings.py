@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'svg',
     # enable rest framework
     'rest_framework',
+    # enable multiply selection field in model
+    'multiselectfield',
 
 ]
 

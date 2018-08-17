@@ -6,3 +6,4 @@ django-libsass
 django-sass-processor
 django-inline-svg
 python-dateutil
+django-multiselectfield

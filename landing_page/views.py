@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .serializers import UserSerializer, CVSerializer
 from .models import CurriculumVitae, Company, Education, Language, Other
+from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 import datetime
 
@@ -39,7 +40,12 @@ def index(request):
         return redirect('admin/login')
     current_user = request.user"""
     current_user = User.objects.get(username='admin')
-    user_info = CurriculumVitae.objects.get(person_id=current_user.id)
+
+    try:
+        user_info = CurriculumVitae.objects.get(person_id=current_user.id)
+    except ObjectDoesNotExist:
+        return redirect('admin/login')
+
     age = datetime.datetime.now().year - current_user.birthday.year
     legit_phone = '7{}{}{}{}'.format(str(user_info.phone)[2:5],
                                      str(user_info.phone)[5:8],

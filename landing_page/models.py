@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 # Added support tel. numbers in fields model
 from phonenumber_field.modelfields import PhoneNumberField
+from multiselectfield import MultiSelectField
 
 
 def user_directory_path(instance, filename):
@@ -62,20 +63,20 @@ class Language(models.Model):
 
 
 class Other(models.Model):
-    countries = (
-        ('Russia', 'Russia'),
-        ('Ukraine', 'Ukraine'),
-        ('Belarus', 'Belarus')
+    COUNTRIES = (
+        ('Russia', ('Russia')),
+        ('Ukraine', ('Ukraine')),
+        ('Belarus', ('Belarus'))
     )
-    travel = (
-        ('Doesn\'t matter', 'Doesn\'t matter'),
-        ('Up to one hour', 'Up to one hour'),
-        ('Up to 90 minutes', 'Up to 90 minutes')
+    TRAVEL = (
+        ('Doesn\'t matter', ('Doesn\'t matter')),
+        ('Up to one hour', ('Up to one hour')),
+        ('Up to 90 minutes', ('Up to 90 minutes'))
     )
     person = models.ForeignKey(Creator)
     citizenship = models.CharField(max_length=20)
-    permissions = models.CharField(choices=countries, default='Russia', max_length=7)
-    travel_to_work = models.CharField(choices=travel, default='Doesn\'t matter', max_length=50)
+    permissions = MultiSelectField(choices=COUNTRIES, default='Russia')
+    travel_to_work = MultiSelectField(choices=TRAVEL, default='Doesn\'t matter', max_choices=1)
 
     def __str__(self):
         return '{} {}'.format(self.person.first_name, self.person.last_name)
