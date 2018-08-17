@@ -13,7 +13,7 @@ YES_NO = dict(Y='Yes', N='No')
 
 # Get image path
 def get_profile_pic_path(abs_path, user_id):
-    profile_picture_dir = '/src/pics/profiles/user_{user_id}'.format(user_id=user_id)
+    profile_picture_dir = 'profiles/user_{user_id}'.format(user_id=user_id)
     profile_picture = str(abs_path).split('/')[-1]
     return '{dir}/{picture}'.format(dir=profile_picture_dir, picture=profile_picture)
 

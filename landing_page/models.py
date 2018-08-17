@@ -8,10 +8,10 @@ from multiselectfield import MultiSelectField
 
 
 def user_directory_path(instance, filename):
-    return '{static}/src/pics/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
-                                                                    id=instance.id,
-                                                                    filename=filename
-                                                                    )
+    return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
+                                                           id=instance.id,
+                                                           filename=filename,
+                                                           )
 
 # Create your models here.
 class Creator(AbstractUser):
