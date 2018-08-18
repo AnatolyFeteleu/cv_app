@@ -16,4 +16,3 @@ class EducationestCase (TestCase):
         education = Education.objects.get(higher_education_institution="VKIEM", person=queryset)
         self.assertEqual(education.finished, datetime.date(2016, 7, 1))
         self.assertEqual(education.person.username, 'anatoly')
-        assert
