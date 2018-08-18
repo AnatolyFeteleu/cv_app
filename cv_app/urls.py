@@ -21,6 +21,10 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'rest/users', views.UserViewSet)
 router.register(r'rest/cv', views.CVViewSet)
+router.register(r'rest/other', views.OtherViewSet)  # Error need fix
+router.register(r'rest/language', views.LanguageViewSet)
+router.register(r'rest/company', views.CompanyViewSet)
+router.register(r'rest/education', views.EducationViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

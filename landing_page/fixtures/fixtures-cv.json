@@ -1,0 +1,21 @@
+[
+  {
+    "model": "landing_page.CurriculumVitae",
+    "pk": 1,
+    "fields": {
+      "person": "1",
+      "freelance": "N",
+      "on_vacation": "Y",
+      "vacation_till": "2018-08-16",
+      "profile": "http://127.0.0.1:8000/rest/cv/home/anatoly/PycharmProjects/github/cv_app/landing_page/static/profiles/user_1/stock-photo.jpg",
+      "address": "Krasnodar",
+      "phone": "+79528867286",
+      "facebook": "pharshape",
+      "linkedin": "anatoly_feteleu",
+      "skype": "ernestobuonarotti",
+      "twitter": "feteleu_anatoly",
+      "key_skills": "none",
+      "about_me": "Окончил Томский государственный университет систем управления и радиоэлектроники (ТУСУР).\\r\\nЛичные качества:\\r\\n• Активная жизненная позиция;\\r\\n• Умение работать в команде;\\r\\n• Стрессоустойчивость;\\r\\n• Интерес к web-разработке;\\r\\n• Обучаемость;\\r\\nстремление к развитию и росту\\r\\n• Ответственность;\\r\\n• Креативность.\\r\\n\\r\\nВ свободное время предпочитаю активное времяпрепровождение (лонгборд, велоспорт и сноуборд), чтение различной литературы или посвящаю его музыке (учусь играть на укулеле)."
+    }
+  }
+]

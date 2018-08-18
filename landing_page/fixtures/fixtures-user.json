@@ -1,0 +1,21 @@
+[
+  {
+    "model": "landing_page.Creator",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$RfDAPDLDZNcx$fVmXC/zNg4Dlln8Nk/otYVD+x0hsdKxrm2LcgQg7ryo=",
+      "last_login": "2018-08-18T10:05:44.358Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Anatoly",
+      "last_name": "Feteleu",
+      "email": "admin@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-08-18T09:59:34.329Z",
+      "birthday": "1994-04-27",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

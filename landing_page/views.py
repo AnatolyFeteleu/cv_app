@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
-from .serializers import UserSerializer, CVSerializer
+from .serializers import *
 from .models import CurriculumVitae, Company, Education, Language, Other
 from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
+from rest_framework.response import Response
 import datetime
 
 User = get_user_model()
@@ -18,31 +19,45 @@ def get_profile_pic_path(abs_path, user_id):
     return '{dir}/{picture}'.format(dir=profile_picture_dir, picture=profile_picture)
 
 
+# REST viewsets
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class CVViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows CVs to be viewed or edited.
-    """
     queryset = CurriculumVitae.objects.all()
     serializer_class = CVSerializer
 
 
+class OtherViewSet(viewsets.ModelViewSet):
+    queryset = Other.objects.all()
+    serializer_class = OtherSerializer
+
+
+class LanguageViewSet(viewsets.ModelViewSet):
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
+
+
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
+
+class EducationViewSet(viewsets.ModelViewSet):
+    queryset = Education.objects.all()
+    serializer_class = EducationSerializer
+
+# REST viewsets
+
+
 # Create your views here.
 def index(request):
-    """if request.user.is_anonymous():
-        return redirect('admin/login')
-    current_user = request.user"""
     current_user = User.objects.get(username='admin')
-
     try:
         user_info = CurriculumVitae.objects.get(person_id=current_user.id)
+        serializer = CVSerializer(user_info, many=True)
     except ObjectDoesNotExist:
         return redirect('admin/login')
 

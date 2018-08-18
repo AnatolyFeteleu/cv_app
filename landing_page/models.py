@@ -13,6 +13,7 @@ def user_directory_path(instance, filename):
                                                            filename=filename,
                                                            )
 
+
 # Create your models here.
 class Creator(AbstractUser):
     # Common
@@ -64,14 +65,14 @@ class Language(models.Model):
 
 class Other(models.Model):
     COUNTRIES = (
-        ('Russia', ('Russia')),
-        ('Ukraine', ('Ukraine')),
-        ('Belarus', ('Belarus'))
+        ('Russia', 'Russia'),
+        ('Ukraine', 'Ukraine'),
+        ('Belarus', 'Belarus')
     )
     TRAVEL = (
-        ('Doesn\'t matter', ('Doesn\'t matter')),
-        ('Up to one hour', ('Up to one hour')),
-        ('Up to 90 minutes', ('Up to 90 minutes'))
+        ('Doesn\'t matter', 'Doesn\'t matter'),
+        ('Up to one hour', 'Up to one hour'),
+        ('Up to 90 minutes', 'Up to 90 minutes')
     )
     person = models.ForeignKey(Creator)
     citizenship = models.CharField(max_length=20)
