@@ -82,3 +82,21 @@ ul {
 .table table td {
   height: 100%;
   width: 100%; }
+
+/* without compression */
+.footer p {
+  font-family: 'Montserrat', 'Sans Serif';
+  color: grey;
+}
+
+#index-table table td:nth-child(1) {
+  font-weight: 500;
+}
+
+#index-table table td:nth-child(2) {
+  color: grey !important;
+}
+
+#index-table table td:nth-child(2) a {
+  color: grey !important;
+}
