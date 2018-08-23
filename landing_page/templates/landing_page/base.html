@@ -1,5 +1,4 @@
 {% load static %}
-{% load compress %}
 
 
 <!DOCTYPE html>
@@ -25,10 +24,11 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 
-        <!-- latest stylesheets -->
-        {% compress css %}
+        <!-- latest sass stylesheets
         <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/index.scss' %}">
-        {% endcompress %}
+        -->
+        <!-- latest stylesheets -->
+        <link type="text/css" rel="stylesheet" href="{% static 'scss/index.css' %}">
 
         <!-- include stylesheet for make links looks more better -->
         <link rel="stylesheet" href="{% static 'css/css-effects.css' %}">

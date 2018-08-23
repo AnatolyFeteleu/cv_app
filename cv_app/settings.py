@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     # enable phonenumber_django package
     'phonenumber_field',
     # compress javascript and css
-    'compressor',
+    # temp unable
+    # 'compressor',
     'landing_page',
     # enable svg support
     'svg',
@@ -136,8 +137,10 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 
-    'compressor.finders.CompressorFinder',
-    'sass_processor.finders.CssFinder',
+    #  Temporary unable
+    #  'compressor.finders.CompressorFinder',
+    #  'sass_processor.finders.CssFinder',
+
 )
 
 STATIC_URL = '/static/'
@@ -151,16 +154,18 @@ AUTH_USER_MODEL = 'landing_page.Creator'
 
 
 # compress precompilers
+#  Temporary unable
+#  COMPRESS_PRECOMPILERS = (
+#      ('text/x-scss', 'django_libsass.SassCompiler'),
+#  )
+#
+#
+#  COMPRESS_ENABLED = True
+#  COMPRESS_URL = STATIC_URL
+#  COMPRESS_ROOT = STATIC_PATH
+#
+#  SASS_PRECISION = 8
+#  SASS_OUTPUT_STYLE = 'compact'
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-COMPRESS_ENABLED = True
-COMPRESS_URL = STATIC_URL
-COMPRESS_ROOT = STATIC_PATH
-
-SASS_PRECISION = 8
-SASS_OUTPUT_STYLE = 'compact'
 
 LOGIN_REDIRECT_URL = 'index'

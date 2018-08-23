@@ -1,0 +1,84 @@
+/* line 8, landing_page/static/scss/index.scss */
+a {
+  text-decoration: none !important;
+  color: black !important; }
+
+/* line 13, landing_page/static/scss/index.scss */
+ul {
+  padding: 0;
+  list-style-type: none; }
+
+/* line 18, landing_page/static/scss/index.scss */
+.nav-link {
+  color: #f0f0f0 !important;
+  font-weight: 900; }
+
+/* line 23, landing_page/static/scss/index.scss */
+.navbar-expand-sm .navbar-nav .nav-link {
+  padding-right: 4.5rem !important; }
+
+/* line 25, landing_page/static/scss/index.scss */
+.navbar-nav {
+  text-align: center; }
+
+/* line 30, landing_page/static/scss/index.scss */
+.socials-svg svg {
+  display: block;
+  margin: auto;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  width: 30px;
+  height: 30px;
+  fill: #f0f0f0;
+  vertical-align: middle; }
+
+/* line 43, landing_page/static/scss/index.scss */
+#hello-svg svg {
+  display: block;
+  fill: #ff4444;
+  width: 80px !important;
+  height: 80px !important; }
+
+/* line 51, landing_page/static/scss/index.scss */
+.col-one {
+  font-size: 21px;
+  font-family: 'Raleway', 'Sans Serif'; }
+
+/* line 56, landing_page/static/scss/index.scss */
+.col-two {
+  /*padding-top: $hello-svg !important;*/ }
+
+/* line 60, landing_page/static/scss/index.scss */
+.hello {
+  font-size: 21px;
+  font-family: 'Raleway', sans-serif !important; }
+
+/* line 65, landing_page/static/scss/index.scss */
+#welcome {
+  font-size: 28px;
+  letter-spacing: 0.1em; }
+
+/* line 72, landing_page/static/scss/index.scss */
+.navbar ul li {
+  font-size: 21px; }
+
+/* line 82, landing_page/static/scss/index.scss */
+.cv-head {
+  font-family: 'Comfortaa', 'sans-serif'; }
+
+/* line 86, landing_page/static/scss/index.scss */
+.cv-headings {
+  font-size: 21px; }
+
+/* line 91, landing_page/static/scss/index.scss */
+.cv-info p {
+  font-size: 21px; }
+
+/* line 96, landing_page/static/scss/index.scss */
+.table table td:first-child {
+  text-transform: uppercase; }
+
+/* line 100, landing_page/static/scss/index.scss */
+.table table td {
+  height: 100%;
+  width: 100%; }
