@@ -16,6 +16,7 @@
                         <td class="font-weight-light"><p>Work experience:</p></td>
                         <td class="text-justify">
                             <ul>
+                                {% if experience %}
                                 {% for i in experience %}
                                 <li><a href="{{ i.3 }}" data-toggle="tooltip" data-placement="right" title="{{ i.4 }}!">{{ i.0 }}</a>
                                     <ul>
@@ -24,12 +25,15 @@
                                 </li>
                                 <br>
                                 {% endfor %}
+                                {% else %}
+                                <li>No experience</li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Key skills:</p></td>
-                        <td class="text-justify">{{ key_skills|linebreaksbr }}</td>
+                        <td class="text-justify">{{ key_skills|linebreaksbr|default:"Nothing" }}</td>
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>About me:</p></td>
