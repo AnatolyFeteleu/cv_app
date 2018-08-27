@@ -1,0 +1,58 @@
+[
+  {
+    "model": "landing_page.creator",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$RfDAPDLDZNcx$fVmXC/zNg4Dlln8Nk/otYVD+x0hsdKxrm2LcgQg7ryo=",
+      "last_login": "2018-08-23T16:57:18.557Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Anatoly",
+      "last_name": "Feteleu",
+      "email": "admin@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-08-18T09:59:34.329Z",
+      "birthday": "1994-04-27",
+      "groups": [],
+      "user_permissions": []}},
+  {
+    "model": "landing_page.education",
+    "pk": 1,
+    "fields": {
+      "person": 1,
+      "higher_education_institution": "Tomsk State University of Control Systems and Radioelectronics",
+      "status": "Master", "finished": "2018-08-24"}},
+  {
+    "model": "landing_page.language",
+    "pk": 1,
+    "fields": {
+      "person": 1,
+      "name": "English",
+      "level": "Intermediate",
+      "describe": ""}},
+  {
+    "model": "landing_page.other",
+    "pk": 1,
+    "fields": {
+      "person": 1,
+      "citizenship": "Russia",
+      "permissions": "Russia",
+      "travel_to_work": "Up to one hour"}},
+  {
+    "model": "landing_page.curriculumvitae",
+    "pk": 1,
+    "fields": {
+      "person": 1, "freelance": "N",
+      "on_vacation": "Y",
+      "vacation_till": "2018-08-16",
+      "profile": "/home/anatoly/PycharmProjects/github/cv_app/landing_page/static/profiles/user_1/stock-photo.jpg",
+      "address": "Krasnodar",
+      "phone": "+79528867286",
+      "facebook": "pharshape",
+      "linkedin": "anatoly_feteleu",
+      "skype": "ernestobuonarotti",
+      "twitter": "feteleu_anatoly",
+      "key_skills": "Python",
+      "about_me": "\u041e\u043a\u043e\u043d\u0447\u0438\u043b \u0422\u043e\u043c\u0441\u043a\u0438\u0439 \u0433\u043e\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0443\u043d\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442 \u0441\u0438\u0441\u0442\u0435\u043c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0438 \u0440\u0430\u0434\u0438\u043e\u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u0438\u043a\u0438 (\u0422\u0423\u0421\u0423\u0420).\r\n\u041b\u0438\u0447\u043d\u044b\u0435 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430:\r\n\u2022 \u0410\u043a\u0442\u0438\u0432\u043d\u0430\u044f \u0436\u0438\u0437\u043d\u0435\u043d\u043d\u0430\u044f \u043f\u043e\u0437\u0438\u0446\u0438\u044f;\r\n\u2022 \u0423\u043c\u0435\u043d\u0438\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c \u0432 \u043a\u043e\u043c\u0430\u043d\u0434\u0435;\r\n\u2022 \u0421\u0442\u0440\u0435\u0441\u0441\u043e\u0443\u0441\u0442\u043e\u0439\u0447\u0438\u0432\u043e\u0441\u0442\u044c;\r\n\u2022 \u0418\u043d\u0442\u0435\u0440\u0435\u0441 \u043a web-\u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0435;\r\n\u2022 \u041e\u0431\u0443\u0447\u0430\u0435\u043c\u043e\u0441\u0442\u044c;\r\n\u2022 C\u0442\u0440\u0435\u043c\u043b\u0435\u043d\u0438\u0435 \u043a \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u044e \u0438 \u0440\u043e\u0441\u0442\u0443;\r\n\u2022 \u041e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c;\r\n\u2022 \u041a\u0440\u0435\u0430\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c.\r\n\u0412 \u0441\u0432\u043e\u0431\u043e\u0434\u043d\u043e\u0435 \u0432\u0440\u0435\u043c\u044f \u043f\u0440\u0435\u0434\u043f\u043e\u0447\u0438\u0442\u0430\u044e \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0435 \u0432\u0440\u0435\u043c\u044f\u043f\u0440\u0435\u043f\u0440\u043e\u0432\u043e\u0436\u0434\u0435\u043d\u0438\u0435 (\u043b\u043e\u043d\u0433\u0431\u043e\u0440\u0434, \u0432\u0435\u043b\u043e\u0441\u043f\u043e\u0440\u0442 \u0438 \u0441\u043d\u043e\u0443\u0431\u043e\u0440\u0434), \u0447\u0442\u0435\u043d\u0438\u0435 \u0440\u0430\u0437\u043b\u0438\u0447\u043d\u043e\u0439 \u043b\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u044b \u0438\u043b\u0438 \u043f\u043e\u0441\u0432\u044f\u0449\u0430\u044e \u0435\u0433\u043e \u043c\u0443\u0437\u044b\u043a\u0435 (\u0443\u0447\u0443\u0441\u044c \u0438\u0433\u0440\u0430\u0442\u044c \u043d\u0430 \u0443\u043a\u0443\u043b\u0435\u043b\u0435)."}}
+]
