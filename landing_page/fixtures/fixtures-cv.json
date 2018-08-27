@@ -24,7 +24,7 @@
     "fields": {
       "person": 1,
       "higher_education_institution": "Tomsk State University of Control Systems and Radioelectronics",
-      "status": "Master", "finished": "2018-08-24"},
+      "status": "Master", "finished": "2018-08-24"}
     },
   {
     "model": "landing_page.language",
