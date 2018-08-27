@@ -1,11 +1,11 @@
 @media screen and (max-width: 300px){
 
   p, li, span, a, td {
-    font-size: 10px;
+    font-size: 12px;
     }
 
   #welcome {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #index-table {
@@ -33,11 +33,11 @@
 @media screen and (min-width: 300px){
 
   p, li, span, a, td {
-    font-size: 10px;
+    font-size: 12px;
     }
 
   #welcome {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #index-table {
@@ -71,11 +71,11 @@
 @media screen and (min-width: 380px){
 
   p, li, span, a, td {
-    font-size: 12px;
+    font-size: 14px;
     }
 
   #welcome {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   #index-table {
@@ -87,7 +87,7 @@
   }
 
   .footer p span {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .portfolio-body .row {

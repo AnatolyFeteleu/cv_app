@@ -148,3 +148,12 @@ ul {
   max-width: 100% !important;
   padding: 50px;
   }
+
+#portfolio-image img {
+  -webkit-filter: blur(1px) opacity(50%); /* Safari 6.0 - 9.0 */
+}
+
+#portfolio-image img:hover {
+  -webkit-filter: blur(0px) opacity(100%); /* Safari 6.0 - 9.0 */
+  filter: opacity(100%);
+}
