@@ -6,17 +6,11 @@ from .models import CurriculumVitae, Company, Education, Language, Other
 from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from rest_framework.response import Response
+from django.core.mail import send_mail
 import datetime
 
 User = get_user_model()
 YES_NO = dict(Y='Yes', N='No')
-
-
-# Get image path
-def get_profile_pic_path(abs_path, user_id):
-    profile_picture_dir = 'profiles/user_{user_id}'.format(user_id=user_id)
-    profile_picture = str(abs_path).split('/')[-1]
-    return '{dir}/{picture}'.format(dir=profile_picture_dir, picture=profile_picture)
 
 
 # REST viewsets
@@ -52,7 +46,38 @@ class EducationViewSet(viewsets.ModelViewSet):
 # REST viewsets
 
 
-# Create your views here.
+# Email view
+def email_success(request):
+    email = request.POST.get('email', '')
+    data = """
+    Hello there!
+
+    I wanted to personally write an email in order to welcome you to our platform.\
+     We have worked day and night to ensure that you get the best service. I hope \
+    that you will continue to use our service. We send out a newsletter once a \
+    week. Make sure that you read it. It is usually very informative.
+
+    Cheers!
+    ~ Yasoob
+        """
+    send_mail('Welcome!', data, "anatolyfeteleu@gmail.com",
+              [email], fail_silently=False)
+    return redirect('index')
+
+
+def email_send(request):
+    return render(request, 'landing_page/email/index.html')
+
+
+# Get image path
+def get_profile_pic_path(abs_path, user_id):
+    profile_picture_dir = 'profiles/user_{user_id}'.format(user_id=user_id)
+    profile_picture = str(abs_path).split('/')[-1]
+    return '{dir}/{picture}'.format(dir=profile_picture_dir, picture=profile_picture)
+
+
+# Page views
+
 def index(request):
     current_user = User.objects.get(username='admin')
     try:

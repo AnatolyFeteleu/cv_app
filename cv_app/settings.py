@@ -169,3 +169,13 @@ AUTH_USER_MODEL = 'landing_page.Creator'
 
 
 LOGIN_REDIRECT_URL = 'index'
+
+
+# Email configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'Anatoly'
+DEFAULT_TO_EMAIL = os.environ['EMAIL_HOST_USER']

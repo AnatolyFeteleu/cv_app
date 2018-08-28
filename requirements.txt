@@ -1,9 +1,6 @@
 django==1.11.3
 django-phonenumber-field
 djangorestframework
-django-compressor
-django-libsass
-django-sass-processor
 django-inline-svg
 python-dateutil
 django-multiselectfield
