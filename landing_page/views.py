@@ -65,6 +65,10 @@ def email_success(request):
     return redirect('index')
 
 
+def email_send(request):
+    return render(request, 'landing_page/email/index.html')
+
+
 # Get image path
 def get_profile_pic_path(abs_path, user_id):
     profile_picture_dir = 'profiles/user_{user_id}'.format(user_id=user_id)
