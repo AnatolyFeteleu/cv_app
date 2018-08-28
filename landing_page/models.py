@@ -41,6 +41,7 @@ class Company(models.Model):
     person = models.ForeignKey(Creator)
     company_name = models.CharField(max_length=1000)
     about = models.TextField(max_length=1000)
+    position = models.CharField(max_length=1000, default="Not specified")
     url = models.CharField(max_length=100, default='www.website.com')
 
     # Experience

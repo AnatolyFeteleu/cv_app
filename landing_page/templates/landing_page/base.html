@@ -63,14 +63,6 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
         </script>
-
-        <!-- fixes dropdown menus placed on the right side  -->
-        <style>
-        .ml-auto .dropdown-menu {
-          left: auto !important;
-          right: 0px;
-        }
-        </style>
     </head>
     <body style="background-image: url({% static 'img/landing-page-background-image.jpg' %}); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover;">
         <br>
@@ -80,8 +72,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
               <!-- Navbar links -->
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse" id="collapsibleNavbar" style="padding-top: 25px">
+                    <ul class="navbar-nav ml-auto" style="margin: auto !important">
                         <!-- index -->
                         {% url 'index' as index %}
                         {% if request.path == index %}
@@ -106,8 +98,13 @@
                         <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'portfolio' %}"><span class="menu__label hover7__label">Portfolio</span></a></li>
                         {% endif %}
 
-                        <!--<li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Blog</span></a></li>-->
-                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="#"><span class="menu__label hover7__label">Contact</span></a></li>
+                        <!-- Contact -->
+                        {% url 'contact' as contact %}
+                        {% if request.path == contact %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7-active" href="{% url 'contact' %}"><span class="menu__label hover7-active__label">Contact</span></a></li>
+                        {% else %}
+                        <li class="nav-item menu__item"><a class="nav-link menu__link hover7" href="{% url 'contact' %}"><span class="menu__label hover7__label">Contact</span></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>

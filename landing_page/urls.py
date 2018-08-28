@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^administration/logout/$', contrib_views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'^cv/$', views.resume, name='cv'),
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
+    url(r'^contact/$', views.contact, name='contact'),
 ]

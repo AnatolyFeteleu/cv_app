@@ -2,25 +2,26 @@
 {% load svg %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12 cv-head" style="display: inline-block; width: 100%; height: 100%; padding-top: 50px; margin: auto; text-align: center;">
+<div class="row cv-block">
+    <div class="cv-head" style="display: inline-block; width: 100%; height: 100%; padding-top: 50px; margin: auto; text-align: center;">
         <h3 class="font-weight-light">Curriculum Vitae</h3>
         <br>
         <hr class="style12">
     </div>
-    <div class="col-md-12 cv-headings">
-        <div id="cv-table" class="table-responsible-sm">
-            <table class="table table-borderless" style="display: block; padding: 50px;">
-                <tbody>
+    <div class="row">
+        <div class="col-md-12 cv-headings">
+            <div id="cv-table" class="table-responsible-sm">
+                <table class="table table-borderless" style="display: block; padding: 50px;">
+                    <tbody>
                     <tr>
                         <td class="font-weight-light"><p>Work experience:</p></td>
                         <td class="text-justify">
                             <ul>
                                 {% if experience %}
                                 {% for i in experience %}
-                                <li><a href="{{ i.3 }}" data-toggle="tooltip" data-placement="right" title="{{ i.4 }}!">{{ i.0 }}</a>
+                                <li><a href="{{ i.4 }}" data-toggle="tooltip" data-placement="right" title="{{ i.5 }}!">{{ i.0 }}</a>{% if i.1 != 'Not specified' %} ({{ i.1 }}){% endif %}
                                     <ul>
-                                        <li>{{i.1}} years {{i.2}} months</li>
+                                        <li style="color: grey; font-style: italic">{{i.2}} years {% if i.3 != 0 %} i.3 months{% endif %} ({{ i.6|date:"F Y" }} - {{ i.7|date:"F Y" }})</li>
                                     </ul>
                                 </li>
                                 <br>
@@ -82,12 +83,12 @@
                                 </li>
                                 <hr>
                                 {% endfor %}
-
                             </ul>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

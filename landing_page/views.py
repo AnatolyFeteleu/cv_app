@@ -116,10 +116,14 @@ def resume(request):
     cv = CurriculumVitae.objects.get(person_id=current_user.id)
     for i in Company.objects.filter(person_id=current_user.id):
         exp_list.append([i.company_name,
+                         i.position,
                          abs(relativedelta.relativedelta(i.experience_from, i.experience_to).years),
                          abs(relativedelta.relativedelta(i.experience_from, i.experience_to).months),
                          'http://{}'.format(i.url),
-                         i.about, ])
+                         i.about,
+                         i.experience_from,
+                         i.experience_to
+                         ])
     edu_list = list()
     for i in Education.objects.filter(person_id=current_user.id):
         edu_list.append(
@@ -161,3 +165,7 @@ def resume(request):
 
 def portfolio(request):
     return render(request, 'landing_page/portfolio/portfolio.html')
+
+
+def contact(request):
+    return render (request, 'landing_page/contact/contact.html')
