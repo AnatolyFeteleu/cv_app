@@ -10,6 +10,5 @@ urlpatterns = [
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^email', views.email_send, name='email_send'),
-    url(r'^success', views.email_success, name='success'),
 
 ]
