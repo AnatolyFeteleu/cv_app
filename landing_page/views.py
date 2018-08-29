@@ -7,7 +7,12 @@ from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from sendgrid.helpers.mail import *
+from cv_app.settings import DEFAULT_TO_EMAIL
+
 import datetime
+import sendgrid
+import os
 
 User = get_user_model()
 YES_NO = dict(Y='Yes', N='No')
@@ -48,7 +53,10 @@ class EducationViewSet(viewsets.ModelViewSet):
 
 # Email view
 def email_success(request):
-    email = request.POST.get('email', '')
+    send_grid = sendgrid.SendGridAPIClient(apikey=os.environ['SENDGRID_API_KEY'])
+    from_email = Email(request.POST.get('email', ''))
+    to_email = Email(DEFAULT_TO_EMAIL)
+    subject = "From django app"
     data = """
     Hello there!
 
@@ -60,8 +68,9 @@ def email_success(request):
     Cheers!
     ~ Yasoob
         """
-    send_mail('Welcome!', data, "anatolyfeteleu@gmail.com",
-              [email], fail_silently=False)
+    content = Content("text/plain", data)
+    mail = Mail(from_email, subject, to_email, content)
+    send_grid.client.mail.send.post(request_body=mail.get())
     return redirect('index')
 
 

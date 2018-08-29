@@ -4,3 +4,4 @@ djangorestframework
 django-inline-svg
 python-dateutil
 django-multiselectfield
+sendgrid
