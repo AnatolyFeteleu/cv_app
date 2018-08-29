@@ -8,7 +8,7 @@ from dateutil import relativedelta
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from sendgrid.helpers.mail import *
-from cv_app.settings import DEFAULT_TO_EMAIL
+from cv_app.settings import DEFAULT_FROM_EMAIL, SENDGRID_API_KEY
 
 import datetime
 import sendgrid
@@ -53,9 +53,9 @@ class EducationViewSet(viewsets.ModelViewSet):
 
 # Email view
 def email_success(request):
-    send_grid = sendgrid.SendGridAPIClient(apikey=os.environ['SENDGRID_API_KEY'])
-    from_email = Email(request.POST.get('email', ''))
-    to_email = Email(DEFAULT_TO_EMAIL)
+    send_grid = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
+    from_email = Email(DEFAULT_FROM_EMAIL)
+    to_email = Email(request.POST.get('email', ''))
     subject = "From django app"
     data = """
     Hello there!

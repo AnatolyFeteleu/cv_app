@@ -172,12 +172,6 @@ LOGIN_REDIRECT_URL = 'index'
 
 
 # Email configuration
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
-DEFAULT_FROM_EMAIL = 'Anatoly'
-DEFAULT_TO_EMAIL = 'anatolyfeteleu@gmail.com'
+DEFAULT_FROM_EMAIL = 'anatolyfeteleu@gmail.com'
 SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 
