@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^cv/$', views.resume, name='cv'),
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^contact/$', views.contact, name='contact'),
-    url(r'^email', views.email_send, name='email_send'),
+    url(r'^contact_me', views.email_send, name='contact_me'),
 
 ]

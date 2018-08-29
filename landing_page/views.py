@@ -7,11 +7,9 @@ from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from rest_framework.response import Response
 from django.core.mail import send_mail
-from sendgrid.helpers.mail import *
-from cv_app.settings import DEFAULT_FROM_EMAIL, SENDGRID_API_KEY
+from django.conf import settings
 
 import datetime
-import sendgrid
 import os
 
 User = get_user_model()
@@ -52,30 +50,13 @@ class EducationViewSet(viewsets.ModelViewSet):
 
 
 # Email view
-def email_success(request):
-    send_grid = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
-    from_email = Email(DEFAULT_FROM_EMAIL)
-    to_email = Email(request.POST.get('email', ''))
-    subject = "From django app"
-    data = """
-    Hello there!
-
-    I wanted to personally write an email in order to welcome you to our platform.\
-     We have worked day and night to ensure that you get the best service. I hope \
-    that you will continue to use our service. We send out a newsletter once a \
-    week. Make sure that you read it. It is usually very informative.
-
-    Cheers!
-    ~ Yasoob
-        """
-    content = Content("text/plain", data)
-    mail = Mail(from_email, subject, to_email, content)
-    send_grid.client.mail.send.post(request_body=mail.get())
-    return redirect('index')
-
-
 def email_send(request):
-    return render(request, 'landing_page/email/index.html')
+    subject = 'Thank you for registering to our site'
+    message = ' it  means a world to us '
+    email_from = 'anatolyfeteleu@gmail.com'
+    recipient_list = ['anatolyfeteleu@gmail.com', ]
+    send_mail(subject, message, email_from, recipient_list)
+    return redirect('index')
 
 
 # Get image path

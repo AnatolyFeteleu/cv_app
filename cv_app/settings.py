@@ -172,6 +172,11 @@ LOGIN_REDIRECT_URL = 'index'
 
 
 # Email configuration
-DEFAULT_FROM_EMAIL = 'anatolyfeteleu@gmail.com'
 SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
