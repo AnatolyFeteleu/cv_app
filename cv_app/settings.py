@@ -180,3 +180,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
+DEFAULT_EMAIL = 'anatolyfeteleu@gmail.com'

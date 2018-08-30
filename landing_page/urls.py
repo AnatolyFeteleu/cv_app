@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^contact_me', views.email_send, name='contact_me'),
+    url(r'^email', views.email, name='email'),
+    url(r'^test', views.email_send, name='test'),
 
 ]
