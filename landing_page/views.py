@@ -6,13 +6,12 @@ from .models import CurriculumVitae, Company, Education, Language, Other
 from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from .forms import EmailForm
-from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse
 
 import datetime
-import os
+
 
 User = get_user_model()
 YES_NO = dict(Y='Yes', N='No')
@@ -64,16 +63,14 @@ def email_send(request):
 
 def email(request):
     email_from = settings.DEFAULT_EMAIL
-    if request == 'POST':
+    if request.method == 'POST':
         form = EmailForm(request.POST)
         if form.is_valid():
-            form.save()
             subject = 'Django test'
             message = form.cleaned_data['text_field']
-            recipient_list = form.cleaned_data['email_field']
+            recipient_list = [form.cleaned_data['email_field'], ]
             send_mail(subject, message, email_from, recipient_list)
-            # return HttpResponse('Works')
-            return redirect('index')
+            return HttpResponse('Works')
     else:
         form = EmailForm()
     return render(request, 'landing_page/email/index.html', {'form': form})
