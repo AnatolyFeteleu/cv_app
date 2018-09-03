@@ -38,20 +38,24 @@
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>About me:</p></td>
-                        <td class="text-justify">{{ about_me|linebreaksbr }}</td>
+                        <td class="text-justify">{{ about_me|linebreaksbr|default:"Very shy" }}</td>
                     </tr>
                     <tr>
                         <td class="font-weight-light"><p>Higher education:</p></td>
                         <td class="text-justify">
                             <ul>
-                                {% for i in edu_list %}
-                                <li>{{ i.0 }}
-                                    <ul>
-                                        <li>{{ i.2 }}</li>
-                                    </ul>
-                                </li>
-                                <br>
-                                {% endfor %}
+                                {% if edu_list %}
+                                    {% for i in edu_list %}
+                                    <li>{{ i.0 }}
+                                        <ul>
+                                            <li>{{ i.2 }}</li>
+                                        </ul>
+                                    </li>
+                                    <br>
+                                    {% endfor %}
+                                {% else %}
+                                <li>Not selected</li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>
@@ -59,14 +63,18 @@
                         <td class="font-weight-light"><p>Languages:</p></td>
                         <td class="text-justify">
                             <ul>
-                                {% for i in lang_list %}
-                                <li>{{ i.0 }}
-                                    <ul>
-                                        <li>{{ i.1}}</li>
-                                    </ul>
-                                </li>
-                                <br>
-                                {% endfor %}
+                                {% if lang_list %}
+                                    {% for i in lang_list %}
+                                    <li>{{ i.0 }}
+                                        <ul>
+                                            <li>{{ i.1}}</li>
+                                        </ul>
+                                    </li>
+                                    <br>
+                                    {% endfor %}
+                                {% else %}
+                                <li>Not selected</li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>
@@ -74,15 +82,19 @@
                         <td class="font-weight-light"><p>Citizenship, travel time to work:</p></td>
                         <td class="text-justify">
                             <ul>
-                                {% for i in other %}
-                                <li><span class="font-italic">Citizenship:</span> {{ i.0 }}
-                                </li>
-                                <li><span class="font-italic">Permission to work:</span> {{ i.1 }}
-                                </li>
-                                <li><span class="font-italic">Desired travel time to work:</span> {{ i.2 }}
-                                </li>
-                                <hr>
-                                {% endfor %}
+                                {% if other %}
+                                    {% for i in other %}
+                                        <li><span class="font-italic">Citizenship:</span> {{ i.0 }}
+                                        </li>
+                                        <li><span class="font-italic">Permission to work:</span> {{ i.1 }}
+                                        </li>
+                                        <li><span class="font-italic">Desired travel time to work:</span> {{ i.2 }}
+                                        </li>
+                                        <hr>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>Not selected</li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>

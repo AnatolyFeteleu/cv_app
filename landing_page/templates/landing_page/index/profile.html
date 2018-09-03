@@ -3,7 +3,11 @@
 
 <div class="container">
     <div class="col-md-6" style="display: inline-block; width: 100%; height: 100%; float: left; padding-top: 50px;">
-        <img class="img-fluid" src="{% static profile_picture %}" alt="Photo">
+        {% if pp_exists %}
+        <img class="img-fluid" src="{% static profile_picture %}" alt="Profile photo">
+        {% else %}
+        <img class="img-fluid" src="{% static 'img\profile_icon.png' %}" alt="Picture not found">
+        {% endif %}
     </div>
     <div class="col-md-6 hello" style="display: inline-block; width: 100%; height: 100%;">
         <div class="col-md-12" style="padding-top: 50px">
@@ -38,12 +42,16 @@
                     {% if on_vacation == 'Yes' %}
                     <tr>
                         <td><span class="badge badge-danger" style="font-size: 85%;">On vacation</span></td>
-                        <td class="text-justify"><span style="display: inline-block; height: 16px; width: 16px;">{% svg 'si-glyph-calendar-1' %}</span> till {{ vacation_till }}</td>
+                        <td class="text-justify">
+                            <span style="display: inline-block; height: 16px; width: 16px; font-size: 16px !important">
+                                {% svg 'si-glyph-calendar-1' %}
+                            </span> till {{ vacation_till|date:"m/d/Y" }}
+                        </td>
                     </tr>
                     {% endif %}
                 </tbody>
             </table>
         </div>
-        <br><br>
+        <br><br><br>
     </div>
 </div>

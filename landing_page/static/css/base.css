@@ -1,7 +1,7 @@
 @media screen and (max-width: 300px){
 
   p, li, span, a, td {
-    font-size: 12px;
+    font-size: 16px;
     }
 
   #welcome {
@@ -28,12 +28,25 @@
   .portfolio-block {
     padding: 25px;
   }
+
+  #contact-block-col {
+    padding: 25px 100px 0 25px;
+  }
+
+  .contact_email_field{width: 50%;}
+  .contact_text_field{width: 50%;}
+  .contact-block-col{
+    padding-top: 15px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0 !important;
+  }
 }
 
 @media screen and (min-width: 300px){
 
   p, li, span, a, td {
-    font-size: 12px;
+    font-size: 16px;
     }
 
   #welcome {
@@ -66,16 +79,32 @@
   .portfolio-block {
     padding: 25px;
   }
+
+  #contact-block-col {
+    padding: 25px 100px 0 25px;
+  }
+
+  .contact_email_field{width: 50%;}
+  .contact_text_field{width: 50%;}
+  .contact-block-col{
+    padding-top: 15px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 15px !important;
+  }
+
+  #contact-button button{width: 120px; height: 60px;}
+
 }
 
 @media screen and (min-width: 380px){
 
   p, li, span, a, td {
-    font-size: 14px;
+    font-size: 16px;
     }
 
   #welcome {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   #index-table {
@@ -102,6 +131,21 @@
   .portfolio-block {
     padding: 25px;
   }
+
+  #contact-block-col {
+    padding: 25px 100px 0 25px;
+  }
+
+  .contact_email_field{width: 80%;}
+  .contact_text_field{width: 80%;}
+  .contact-block-col{
+    padding-top: 25px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 15px !important;
+  }
+
+  #contact-button button{width: 120px; height: 60px;}
 }
 
 @media screen and (min-width: 450px){
@@ -140,6 +184,22 @@
   .portfolio-block {
     padding: 25px;
   }
+
+  #contact-block-col {
+    padding: 25px 100px 0 50px;
+  }
+
+  .contact_email_field{width: 80%;}
+  .contact_text_field{width: 80%;}
+  .contact-block-col{
+    padding-top: 25px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 15px !important;
+  }
+
+  #contact-button {margin: 0 15px 0 0}
+
 }
 
 
@@ -180,4 +240,20 @@
   .portfolio-block {
     padding: 50px;
   }
+
+  .contact-body input{width: 90%;}
+  .contact-body textarea{width: 90%;}
+  .contact-block-col{
+    padding-top: 25px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 100px !important;
+  }
+  .contact-block-col .btn{margin:0;}
+
+  #contact-button {margin: 0 50px 0 0}
+
+  #contact-button button{width: 240px; height: 80px;}
+
+  .alert{width: 90%}
 }

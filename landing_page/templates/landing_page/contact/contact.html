@@ -2,12 +2,55 @@
 {% load static %}
 
 {% block content %}
-<div class="row">
+<div class="row" style="width: 75%; margin-left: auto; margin-right: auto;">
     <div class="col-md-12 contact-block cv-block">
         <div class="contact-head" style="display: inline-block; width: 100%; height: 100%; margin: auto; text-align: center;">
             <h3 id="font-weight-light" style="text-align: center">Contact information</h3>
             <div id="portfolio-hr">
                 <hr class="style12">
+            </div>
+        </div>
+        <div class="contact-body">
+            <div class="row">
+                <div class="col-md-12 contact-block-col" style="display: inline-block; background-color: white; width: 100%; height: 100%; max-width: 100% !important;">
+                    {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        {% if form.non_field_errors %}<li>{{ form.non_field_errors }}</li>{% endif %}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <li style="list-style: None">{{ field.errors|striptags }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        <p style="font-family: 'Caveat', 'sans-serif'; font-size: 24px; color: lightslategrey">If you are interested in working with me, please email me using the form below.
+                            <br>I will consider each proposal, thank you!</p>
+                    {% endif %}
+                    <br>
+                    <form method="POST">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <p style="font: 18px 'Comfortaa', 'sans-serif'">{{ form.email_field.label }}</p>
+                            {{ form.email_field }}
+                            <br><br>
+                            <p style="font: 18px 'Comfortaa', 'sans-serif'">{{ form.subject.label }}</p>
+                            {{ form.subject }}
+                            <br>
+                            <p style="font: 18px 'Comfortaa'">{{ form.text_field.label }}</p>
+                            {{ form.text_field }}
+                            {% if messages %}
+                                {% for message in messages %}
+                                <script>alert("{{ message }}")</script>
+                                {% endfor %}
+                            {% endif %}
+                            <script src='https://www.google.com/recaptcha/api.js'></script>
+                            <div class="g-recaptcha" data-sitekey="6Ldqf20UAAAAAC15a1tg7GIEFFnVuLOtE9bEQxGt" style="margin-top: 25px"></div>
+                            <br><br>
+                            <div id="contact-button" style="text-align: center"><button class="btn draw-border" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

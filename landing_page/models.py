@@ -5,13 +5,21 @@ from django.contrib.auth.models import AbstractUser
 # Added support tel. numbers in fields model
 from phonenumber_field.modelfields import PhoneNumberField
 from multiselectfield import MultiSelectField
+import os
 
 
 def user_directory_path(instance, filename):
-    return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
-                                                           id=instance.id,
-                                                           filename=filename,
-                                                           )
+    if os.path.isdir('{static}/profiles'.format(static=settings.STATIC_PATH)):
+        return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
+                                                               id=instance.id,
+                                                               filename=filename,
+                                                               )
+    else:
+        os.mkdir('{static}/profiles'.format(static=settings.STATIC_PATH))
+        return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
+                                                               id=instance.id,
+                                                               filename=filename,
+                                                               )
 
 
 # Create your models here.
@@ -94,7 +102,7 @@ class CurriculumVitae(models.Model):
     freelance = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
     on_vacation = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
     vacation_till = models.DateField(null=True, blank=True)
-    profile = models.FileField(null=True, upload_to=user_directory_path)
+    profile = models.FileField(blank=True, null=True, upload_to=user_directory_path)
     address = models.CharField(null=True, max_length=1000)
     phone = PhoneNumberField()
 
@@ -107,6 +115,7 @@ class CurriculumVitae(models.Model):
     # Resume
     key_skills = models.TextField(blank=True)
     about_me = models.TextField(blank=True)
+    resume = models.FileField(blank=True, upload_to=user_directory_path)
 
     def __str__(self):
         return '{first_name} {last_name}'.format(

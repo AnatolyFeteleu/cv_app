@@ -9,8 +9,10 @@ from .forms import EmailForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse
+from django.contrib import messages
 
 import datetime
+import requests
 
 
 User = get_user_model()
@@ -51,36 +53,11 @@ class EducationViewSet(viewsets.ModelViewSet):
 # REST viewsets
 
 
-# Email view
-def email_send(request):
-    subject = 'Thank you for registering to our site'
-    message = ' it  means a world to us '
-    email_from = 'anatolyfeteleu@gmail.com'
-    recipient_list = ['anatolyfeteleu@gmail.com', ]
-    send_mail(subject, message, email_from, recipient_list)
-    return redirect('index')
-
-
-def email(request):
-    email_from = settings.DEFAULT_EMAIL
-    if request.method == 'POST':
-        form = EmailForm(request.POST)
-        if form.is_valid():
-            subject = 'Django test'
-            message = form.cleaned_data['text_field']
-            recipient_list = [form.cleaned_data['email_field'], ]
-            send_mail(subject, message, email_from, recipient_list)
-            return HttpResponse('Works')
-    else:
-        form = EmailForm()
-    return render(request, 'landing_page/email/index.html', {'form': form})
-
-
 # Get image path
-def get_profile_pic_path(abs_path, user_id):
-    profile_picture_dir = 'profiles/user_{user_id}'.format(user_id=user_id)
-    profile_picture = str(abs_path).split('/')[-1]
-    return '{dir}/{picture}'.format(dir=profile_picture_dir, picture=profile_picture)
+def get_path(abs_path, user_id):
+    directory = 'profiles/user_{user_id}'.format(user_id=user_id)
+    file = str(abs_path).split('/')[-1]
+    return '{directory}/{file}'.format(directory=directory, file=file)
 
 
 # Page views
@@ -115,7 +92,9 @@ def index(request):
         freelance=user_info.freelance,
         on_vacation=user_info.on_vacation,
         vacation_till=user_info.vacation_till,
-        profile=get_profile_pic_path(user_info.profile, current_user.id),
+        profile=get_path(user_info.profile, current_user.id),
+        pp_exists=bool(user_info.profile),
+        resume=get_path(user_info.resume, current_user.id),
         socials=dict(
             facebook=user_info.facebook,
             twitter=user_info.twitter,
@@ -139,6 +118,7 @@ def index(request):
         'linkedin': information['socials']['linkedin'],
         'twitter': information['socials']['twitter'],
         'facebook': information['socials']['facebook'],
+        'resume': information['resume']
     })
 
 
@@ -200,4 +180,33 @@ def portfolio(request):
 
 
 def contact(request):
-    return render (request, 'landing_page/contact/contact.html')
+    email_from = settings.DEFAULT_EMAIL
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = 'Django (Job offers) - {}'.format(form.cleaned_data['subject'])
+            message = form.cleaned_data['text_field']
+            recipient_list = [form.cleaned_data['email_field'], ]
+
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            data = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+            result = r.json()
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                send_mail(subject, message, email_from, recipient_list)
+                return redirect('thanks')
+            else:
+                messages.error(request, result)
+    else:
+        form = EmailForm()
+    return render(request, 'landing_page/contact/contact.html', {'form': form})
+
+
+def thanks(request):
+    return render(request, 'landing_page/contact/success/index.html')

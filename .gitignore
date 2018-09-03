@@ -4,3 +4,6 @@ __pycache__/
 db.sqlite3
 /landing_venv/
 polygon.py
+landing_page/static/profiles/
+landing_page/static/CACHE/
+polygon.py
