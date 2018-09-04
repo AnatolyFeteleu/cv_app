@@ -199,15 +199,15 @@ def contact(request):
             </head>
             <body style="background-color: #f8f8f8; color: #333333; border-radius: 10px; padding: 50px">
                 <div>
-                    <h1 style='text-transform: uppercase; text-align: center; font-style: italic';>{subject}</h1>
-                    <p>Message text:<br>"{text}"</p>
+                    <h2 style='text-transform: uppercase; text-align: center;>{subject}</h2>
+                    <p style="font-size: 16px">Message text:<br>"{text}"</p>
                     <br>
-                    <p>Contact email:<br>
+                    <p style="font-size: 16px">Contact email:<br>
                         <a style="color: #1a7fab; text-decoration: none;" href="mailto:{signature}">{signature}</a>
                     </p>
                     <br>
                     <hr style="overflow: visible; padding: 0;border: none; border-top: medium double #333333; color: #333333; text-align: center;">
-                    <a style="color: #1a7fab; text-decoration: none;" href="mailto:{signature}">Click to reply</a>
+                    <a style="color: #1a7fab; text-decoration: none; font-size: 16px" href="mailto:{signature}">Click to reply</a>
                 </div>
             </body>
             </html>

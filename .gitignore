@@ -7,3 +7,4 @@ polygon.py
 landing_page/static/profiles/
 landing_page/static/CACHE/
 polygon.py
+cv_app/settings_debug.py
