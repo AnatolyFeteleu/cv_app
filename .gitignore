@@ -8,3 +8,4 @@ landing_page/static/profiles/
 landing_page/static/CACHE/
 polygon.py
 cv_app/settings_debug.py
+cv_app/settings.py_debug
