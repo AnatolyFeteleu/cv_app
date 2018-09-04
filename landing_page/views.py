@@ -7,6 +7,8 @@ from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from .forms import EmailForm
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib import messages
@@ -183,13 +185,39 @@ def portfolio(request):
 
 
 def contact(request):
-    email_from = settings.DEFAULT_EMAIL
     if request.method == 'POST':
         form = EmailForm(request.POST)
         if form.is_valid():
-            subject = 'Django (Job offers) - {}'.format(form.cleaned_data['subject'])
-            message = form.cleaned_data['text_field']
-            recipient_list = [form.cleaned_data['email_field'], ]
+            subject = 'Django mailer - {}'.format(form.cleaned_data['subject'])
+            text = """
+            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Django mailer</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            </head>
+            <body style="background-color: #f8f8f8; color: #333333; border-radius: 10px; padding: 50px">
+                <div>
+                    <h1 style='text-transform: uppercase; text-align: center; font-style: italic';>{subject}</h1>
+                    <p>Message text:<br>"{text}"</p>
+                    <br>
+                    <p>Contact email:<br>
+                        <a style="color: #1a7fab; text-decoration: none;" href="mailto:{signature}">{signature}</a>
+                    </p>
+                    <br>
+                    <hr style="overflow: visible; padding: 0;border: none; border-top: medium double #333333; color: #333333; text-align: center;">
+                    <a style="color: #1a7fab; text-decoration: none;" href="mailto:{signature}">Click to reply</a>
+                </div>
+            </body>
+            </html>
+            """
+            message = text.format(
+                subject=form.cleaned_data['subject'],
+                text=form.cleaned_data['text_field'],
+                signature=form.cleaned_data['email_field']
+                )
+            recipient_list = settings.DEFAULT_EMAIL
 
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
@@ -202,7 +230,16 @@ def contact(request):
             ''' End reCAPTCHA validation '''
 
             if result['success']:
-                send_mail(subject, message, email_from, recipient_list)
+                mail = EmailMessage(
+                           subject,
+                           message,
+                           form.cleaned_data['email_field'],
+                           [recipient_list, ],
+                           reply_to=[form.cleaned_data['email_field'], ],
+                           headers={'Message-ID': 'Django offers'},
+                       )
+                mail.content_subtype = "html"
+                mail.send()
                 return redirect('thanks')
             else:
                 messages.error(request, result)

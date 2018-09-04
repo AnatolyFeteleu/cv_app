@@ -172,13 +172,11 @@ LOGIN_REDIRECT_URL = 'index'
 
 
 # Email configuration
-SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.environ['DEFAULT_EMAIL']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD_GMAIL']
-DEFAULT_EMAIL = os.environ['DEFAULT_EMAIL']
-GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get('GOOGLE_RECAPTCHA_SECRET_KEY')
+EMAIL_HOST_USER = 'anatolyfeteleu@gmail.com'
+EMAIL_HOST_PASSWORD = 'tdpdjgachokpmktg'
+DEFAULT_EMAIL = 'anatolyfeteleu@gmail.com'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Ldqf20UAAAAAMzKrJzSa9eNi3NoMMNlBgYngCVx'

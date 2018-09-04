@@ -31,7 +31,7 @@
                     <form method="POST">
                         <div class="form-group">
                             {% csrf_token %}
-                            <p style="font: 18px 'Comfortaa', 'sans-serif'">{{ form.email_field.label }}</p>
+                            <p style="font: 18px 'Comfortaa', 'sans-serif'">Enter an email address to contact you</p>
                             {{ form.email_field }}
                             <br><br>
                             <p style="font: 18px 'Comfortaa', 'sans-serif'">{{ form.subject.label }}</p>
