@@ -6,9 +6,7 @@ from .models import CurriculumVitae, Company, Education, Language, Other
 from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from .forms import EmailForm
-from django.core.mail import send_mail
 from django.core.mail import EmailMessage
-from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib import messages
@@ -188,27 +186,25 @@ def contact(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)
         if form.is_valid():
+            recipient_list = settings.DEFAULT_EMAIL
             subject = 'Django mailer - {}'.format(form.cleaned_data['subject'])
             text = """
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>Django mailer</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             </head>
             <body style="background-color: #f8f8f8; color: #333333; border-radius: 10px; padding: 50px">
-                <div>
-                    <h2 style='text-transform: uppercase; text-align: center;>{subject}</h2>
-                    <p style="font-size: 16px">Message text:<br>"{text}"</p>
-                    <br>
-                    <p style="font-size: 16px">Contact email:<br>
-                        <a style="color: #1a7fab; text-decoration: none;" href="mailto:{signature}">{signature}</a>
-                    </p>
-                    <br>
-                    <hr style="overflow: visible; padding: 0;border: none; border-top: medium double #333333; color: #333333; text-align: center;">
-                    <a style="color: #1a7fab; text-decoration: none; font-size: 16px" href="mailto:{signature}">Click to reply</a>
-                </div>
+                <h1 style="text-transform: uppercase; text-align: center; text-decoration: underline; padding: 0;">{subject}</h1>
+                <p style="font-size: 16px; font-style: italic;">Message text:<br>"<span style="font-style: normal;">{text}</span>"</p>
+                <br>
+                <p style="font-size: 16px; font-style: italic;">Contact email:<br>
+                    <a style="color: #1a7fab; text-decoration: none; font-size: 16px; font-style: normal;" href="mailto:{signature}">{signature}</a>
+                </p>
+                <br>
+                <hr style="overflow: visible; padding: 0;border: none; border-top: medium double #333333; color: #333333; text-align: center;">
+                <a style="color: #1a7fab; text-decoration: none; font-size: 16px;" href="mailto:{signature}">Click to reply</a>
             </body>
             </html>
             """
@@ -217,8 +213,6 @@ def contact(request):
                 text=form.cleaned_data['text_field'],
                 signature=form.cleaned_data['email_field']
                 )
-            recipient_list = settings.DEFAULT_EMAIL
-
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             data = {
