@@ -63,11 +63,10 @@ def get_path(abs_path, user_id):
 # Page views
 
 def index(request):
-    current_user = User.objects.get(username='admin')
     try:
+        current_user = User.objects.get(username='admin')
         user_info = CurriculumVitae.objects.get(person_id=current_user.id)
-        serializer = CVSerializer(user_info, many=True)
-    except ObjectDoesNotExist:
+    except:
         return redirect('admin/login')
 
     age = datetime.datetime.now().year - current_user.birthday.year
@@ -123,7 +122,11 @@ def index(request):
 
 
 def resume(request):
-    current_user = User.objects.get(username='admin')
+    try:
+        current_user = User.objects.get(username='admin')
+    except:
+        return redirect('admin/login')
+
     exp_list = list()
     cv = CurriculumVitae.objects.get(person_id=current_user.id)
     for i in Company.objects.filter(person_id=current_user.id):
