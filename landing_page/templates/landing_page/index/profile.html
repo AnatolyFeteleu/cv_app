@@ -1,7 +1,7 @@
 {% load static %}
 {% load svg %}
 
-<div class="container" style="margin-bottom: 85px;">
+<div class="container" style="{% if on_vacation == 'Yes' %}margin-bottom: 85px;{% else %}margin-bottom: 125px;{% endif %}">
     <div class="col-md-6" style="display: inline-block; width: 100%; height: 100%; float: left; padding-top: 50px;">
         {% if pp_exists %}
         <img class="img-fluid" src="{% static profile_picture %}" alt="Profile photo">
