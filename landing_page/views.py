@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .serializers import *
 from .models import CurriculumVitae, Company, Education, Language, Other
-from django.db.models.base import ObjectDoesNotExist
 from dateutil import relativedelta
 from .forms import EmailForm
 from django.core.mail import EmailMessage
@@ -60,65 +59,72 @@ def get_path(abs_path, user_id):
     return '{directory}/{file}'.format(directory=directory, file=file)
 
 
+# Get information from db about User
+def get_user_info(username, model):
+    try:
+        user = User.objects.get(username=username)
+        user_info = model.objects.get(person_id=user.id)
+        age = datetime.datetime.now().year - user.birthday.year
+        legit_phone = '7{}{}{}{}'.format(str(user_info.phone)[2:5],
+                                         str(user_info.phone)[5:8],
+                                         str(user_info.phone)[8:10],
+                                         str(user_info.phone)[10:12]
+                                         )
+        phone = '+7 {} {} {} {}'.format(str(user_info.phone)[2:5],
+                                        str(user_info.phone)[5:8],
+                                        str(user_info.phone)[8:10],
+                                        str(user_info.phone)[10:12]
+                                        )
+        information = dict(
+            firstname=user.first_name,
+            lastname=user.last_name,
+            phone=phone,
+            legit_phone=legit_phone,
+            email=user.email,
+            age=age,
+            address=user_info.address,
+            freelance=user_info.freelance,
+            on_vacation=user_info.on_vacation,
+            vacation_till=user_info.vacation_till,
+            profile=get_path(user_info.profile, user.id),
+            pp_exists=bool(user_info.profile),
+            resume=get_path(user_info.resume, user.id),
+            socials=dict(
+                facebook=user_info.facebook,
+                twitter=user_info.twitter,
+                linkedin=user_info.linkedin,
+                skype=user_info.skype,
+            )
+        )
+        return information
+    except:
+        return 0
+
+
 # Page views
 
 def index(request):
-    try:
-        current_user = User.objects.get(username='admin')
-        user_info = CurriculumVitae.objects.get(person_id=current_user.id)
-    except:
+    if get_user_info('admin', CurriculumVitae):
+        return render(request, 'landing_page/index/index.html', {
+            'firstname': get_user_info('admin', CurriculumVitae)['firstname'],
+            'lastname': get_user_info('admin', CurriculumVitae)['lastname'],
+            'phone': get_user_info('admin', CurriculumVitae)['phone'],
+            'legit_phone': get_user_info('admin', CurriculumVitae)['legit_phone'],
+            'email': get_user_info('admin', CurriculumVitae)['email'],
+            'age': get_user_info('admin', CurriculumVitae)['age'],
+            'address': get_user_info('admin', CurriculumVitae)['address'],
+            'freelance': YES_NO[get_user_info('admin', CurriculumVitae)['freelance']],
+            'on_vacation': YES_NO[get_user_info('admin', CurriculumVitae)['on_vacation']],
+            'vacation_till': get_user_info('admin', CurriculumVitae)['vacation_till'],
+            'profile_picture': get_user_info('admin', CurriculumVitae)['profile'],
+            'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+            'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+            'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+            'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+            'resume': get_user_info('admin', CurriculumVitae)['resume']
+        })
+    else:
         return redirect('admin/login')
-
-    age = datetime.datetime.now().year - current_user.birthday.year
-    legit_phone = '7{}{}{}{}'.format(str(user_info.phone)[2:5],
-                                     str(user_info.phone)[5:8],
-                                     str(user_info.phone)[8:10],
-                                     str(user_info.phone)[10:12]
-                                     )
-    phone = '+7 {} {} {} {}'.format(str(user_info.phone)[2:5],
-                                    str(user_info.phone)[5:8],
-                                    str(user_info.phone)[8:10],
-                                    str(user_info.phone)[10:12]
-                                    )
-    information = dict(
-        firstname=current_user.first_name,
-        lastname=current_user.last_name,
-        phone=phone,
-        legit_phone=legit_phone,
-        email=current_user.email,
-        age=age,
-        address=user_info.address,
-        freelance=user_info.freelance,
-        on_vacation=user_info.on_vacation,
-        vacation_till=user_info.vacation_till,
-        profile=get_path(user_info.profile, current_user.id),
-        pp_exists=bool(user_info.profile),
-        resume=get_path(user_info.resume, current_user.id),
-        socials=dict(
-            facebook=user_info.facebook,
-            twitter=user_info.twitter,
-            linkedin=user_info.linkedin,
-            skype=user_info.skype,
-        )
-    )
-    return render(request, 'landing_page/index/index.html', {
-        'firstname': information['firstname'],
-        'lastname': information['lastname'],
-        'phone': information['phone'],
-        'legit_phone': information['legit_phone'],
-        'email': information['email'],
-        'age': information['age'],
-        'address': information['address'],
-        'freelance': YES_NO[information['freelance']],
-        'on_vacation': YES_NO[information['on_vacation']],
-        'vacation_till': information['vacation_till'],
-        'profile_picture': information['profile'],
-        'skype': information['socials']['skype'],
-        'linkedin': information['socials']['linkedin'],
-        'twitter': information['socials']['twitter'],
-        'facebook': information['socials']['facebook'],
-        'resume': information['resume']
-    })
 
 
 def resume(request):
@@ -174,12 +180,21 @@ def resume(request):
         'edu_list': edu_list,
         'lang_list': lang_list,
         'other': other_list,
+        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
     }
                   )
 
 
 def portfolio(request):
-    return render(request, 'landing_page/portfolio/portfolio.html')
+    return render(request, 'landing_page/portfolio/portfolio.html', {
+        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+    })
 
 
 def contact(request):
@@ -239,7 +254,13 @@ def contact(request):
                 messages.error(request, result)
     else:
         form = EmailForm()
-    return render(request, 'landing_page/contact/contact.html', {'form': form})
+    return render(request, 'landing_page/contact/contact.html', {
+        'form': form,
+        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+    })
 
 
 def thanks(request):

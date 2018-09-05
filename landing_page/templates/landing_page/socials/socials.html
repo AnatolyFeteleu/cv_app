@@ -1,16 +1,24 @@
 {% load svg %}
 
 <div class="socials" style="display: flex; background-color: #ff4444; width: 100%; height: 100px; max-width: 100% !important;">
+    {% if linkedin %}
     <div class="col-md-3 socials-svg" style="display: inline-block;">
         <a href="{{ linkedin }}">{% svg 'linkedin-logo' %}</a>
     </div>
+    {% endif %}
+    {% if linkedin %}
     <div class="col-md-3 socials-svg" style="display: inline-block;">
         <a href="skype:{{ skype }}">{% svg 'skype' %}</a>
     </div>
+    {% endif %}
+    {% if linkedin %}
     <div class="col-md-3 socials-svg" style="display: inline-block;">
         <a href="{{ facebook }}">{% svg 'social' %}</a>
     </div>
+    {% endif %}
+    {% if linkedin %}
     <div class="col-md-3 socials-svg" style="display: inline-block;">
         <a href="{{ twitter }}">{% svg 'twitter-logo' %}</a>
     </div>
+    {% endif %}
 </div>
