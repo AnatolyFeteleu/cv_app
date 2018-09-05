@@ -101,16 +101,16 @@ class CurriculumVitae(models.Model):
     person = models.ForeignKey(Creator, default='')
     freelance = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
     on_vacation = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
-    vacation_till = models.DateField(null=True, blank=True)
-    profile = models.FileField(blank=True, null=True, upload_to=user_directory_path)
-    address = models.CharField(null=True, max_length=1000)
+    vacation_till = models.DateField(blank=True)
+    profile = models.FileField(blank=True, upload_to=user_directory_path)
+    address = models.CharField(blank=False, max_length=1000)
     phone = PhoneNumberField()
 
     # Socials
-    facebook = models.CharField(null=True, max_length=50)
-    linkedin = models.CharField(null=True, max_length=50)
-    skype = models.CharField(null=True, max_length=50)
-    twitter = models.CharField(null=True, max_length=50)
+    facebook = models.CharField(blank=True, max_length=50)
+    linkedin = models.CharField(blank=True, max_length=50)
+    skype = models.CharField(blank=True, max_length=50)
+    twitter = models.CharField(blank=True, max_length=50)
 
     # Resume
     key_skills = models.TextField(blank=True)
