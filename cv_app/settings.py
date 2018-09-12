@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from .env_vars import parse_file
+import socket
+
+if socket.gethostname() == 'DESKTOP-R6VN3OP':
+    from .local_settings import *
+else:
+    from .production_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,16 +27,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = parse_file(os.path.join(BASE_DIR, 'cv_app/env.txt')).get('SECRET_KEY', 'None')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     'anatolyfeteleu.pythonanywhere.com',
     '127.0.0.1',
+    'localhost',
 ]
-
 
 # Application definition
 
@@ -42,9 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # enable phonenumber_django package
     'phonenumber_field',
-    # compress javascript and css
-    # temp unable
-    # 'compressor',
     'landing_page',
     # enable svg support
     'svg',
@@ -96,7 +98,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -136,11 +137,6 @@ USE_TZ = True
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
-    #  Temporary unable
-    #  'compressor.finders.CompressorFinder',
-    #  'sass_processor.finders.CssFinder',
-
 )
 
 STATIC_URL = '/static/'
@@ -148,26 +144,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'landing_page/static')
 STATIC_PATH = os.path.join(BASE_DIR, 'landing_page/static')
 
 
-# Extending fields in user model
+# Media files
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'landing_page/media')
+
+
+# Extending fields in user model
 AUTH_USER_MODEL = 'landing_page.Creator'
 
-
-# compress precompilers
-#  Temporary unable
-#  COMPRESS_PRECOMPILERS = (
-#      ('text/x-scss', 'django_libsass.SassCompiler'),
-#  )
-#
-#
-#  COMPRESS_ENABLED = True
-#  COMPRESS_URL = STATIC_URL
-#  COMPRESS_ROOT = STATIC_PATH
-#
-#  SASS_PRECISION = 8
-#  SASS_OUTPUT_STYLE = 'compact'
-
-
+# Redirecting URL
 LOGIN_REDIRECT_URL = 'index'
 
 
@@ -176,7 +162,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.environ['DEFAULT_EMAIL']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD_GMAIL']
-DEFAULT_EMAIL = os.environ['DEFAULT_EMAIL']
-GOOGLE_RECAPTCHA_SECRET_KEY = os.environ['GOOGLE_RECAPTCHA_SECRET_KEY']
+EMAIL_HOST_USER = parse_file(os.path.join(BASE_DIR, 'cv_app/env.txt')).get('DEFAULT_EMAIL', 'None')
+EMAIL_HOST_PASSWORD = parse_file(os.path.join(BASE_DIR, 'cv_app/env.txt')).get('EMAIL_HOST_PASSWORD', 'None')
+DEFAULT_EMAIL = parse_file(os.path.join(BASE_DIR, 'cv_app/env.txt')).get('DEFAULT_EMAIL', 'None')
+GOOGLE_RECAPTCHA_SECRET_KEY = parse_file(os.path.join(BASE_DIR, 'cv_app/env.txt')).get('GOOGLE_RECAPTCHA_SECRET_KEY', 'None')

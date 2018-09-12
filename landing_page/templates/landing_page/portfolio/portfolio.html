@@ -9,30 +9,39 @@
             <div id="portfolio-hr"><hr class="style12"></div>
         </div>
         <div class="portfolio-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Repository</h4>
-                    <div class="portfolio-card">
-                        <div class="github-card" data-github="anatolyfeteleu" data-height="150" data-theme="default"></div>
-                    </div>
-                </div>
-                <div class="col-md-6" id="portfolio-image">
-                    <h4>Landing page</h4>
-                    <dir>
-                        <a href="http://anatolyfeteleu.pythonanywhere.com"><img class="img-fluid portfolio-image" src="{% static 'img/miniature.jpg' %}" alt="Chania"></a>
-                    </dir>
-                </div>
-            </div>
-            <div class="row" style="padding-top: 50px">
-                <div class="col-md-6">
-                    <h4>REST-API</h4>
-                    <p>Nothing here :(</p>
-                </div>
-                <div class="col-md-6">
-                    <h4>etc.</h4>
-                    <p style="text-align: center">...</p>
-                </div>
-            </div>
+            <ul class="directory-list">
+                <li>Projects
+                    <ul>
+                        {% for project in projects %}
+                        <li>{{ project.0 }}
+                            <ul>
+                                <li>{{ project.1 }}.txt</li>
+                                {% with label='description.txt' %}
+                                    {% if project.2 %}
+                                    <li>
+                                        <a href="#" title="{{ label }}" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="{{ project.2 }}" style="margin-left: -5px;">{{ label }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endwith %}
+                                {% if project.3 %}<li><a target="_blank" rel="noopener noreferrer" href="{{ project.3 }}">link_on_github.ink</a></li>{% endif %}
+                                {% if project.4 %}<li><a href="#" data-toggle="modal" data-target="#myModal">screenshot.jpg</a></li>{% endif %}
+                                <!-- The Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document" style="max-width: 75%; margin: auto;">
+                                        <div class="modal-content">
+                                            <img src="https://www.todayvideos.net/wp-content/uploads/2018/04/1522722170_maxresdefault.jpg" class="rounded" alt="screenshot" style="display: block; max-width: 100%; height: auto;">
+                                            <div class="modal-footer">
+                                                <a href="#" data-dismiss="modal" style="margin: auto; padding: 0; text-decoration: none; font-family: 'Comfortaa';">Close</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
     {% include 'landing_page/socials/socials.html' %}
@@ -40,4 +49,54 @@
 
 
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+<script>
+// get all folders in our .directory-list
+	var allFolders = $(".directory-list li > ul");
+	allFolders.each(function() {
+
+	  // add the folder class to the parent <li>
+	  var folderAndName = $(this).parent();
+	  folderAndName.addClass("folder");
+
+	  // backup this inner <ul>
+	  var backupOfThisFolder = $(this);
+	  // then delete it
+	  $(this).remove();
+	  // add an <a> tag to whats left ie. the folder name
+	    //folderAndName.wrapInner("<a href='#' />");
+	  // then put the inner <ul> back
+	  folderAndName.append(backupOfThisFolder);
+
+	  // now add a slideToggle to the <a> we just added
+	    //folderAndName.find("a").click(function(e) {
+	    //  $(this).siblings("ul").slideToggle("slow");
+	    //  e.preventDefault();
+	    //});
+
+	});
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+<script>
+function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find("#open-modal");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+}
+
+$('.modal').on('show.bs.modal', centerModal);
+$(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+});
+</script>
+<script>
+jQuery(document).ready(function(e) {
+    jQuery('#mymodal').trigger('click');
+    });
+</script>
 {% endblock %}

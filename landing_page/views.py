@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .serializers import *
-from .models import CurriculumVitae, Company, Education, Language, Other
+from .models import *
+from django.core.exceptions import ObjectDoesNotExist
 from dateutil import relativedelta
 from .forms import EmailForm
 from django.core.mail import EmailMessage
@@ -12,6 +13,7 @@ from django.contrib import messages
 
 import datetime
 import requests
+import os
 
 
 User = get_user_model()
@@ -54,9 +56,12 @@ class EducationViewSet(viewsets.ModelViewSet):
 
 # Get image path
 def get_path(abs_path, user_id):
-    directory = 'profiles/user_{user_id}'.format(user_id=user_id)
-    file = str(abs_path).split('/')[-1]
-    return '{directory}/{file}'.format(directory=directory, file=file)
+    if abs_path:
+        filename = str(abs_path).split('/')[-1]
+        directory = r'profiles/user_{id}/'.format(media_root=settings.MEDIA_ROOT, id=user_id, filename=filename)
+        return '{directory}{file}'.format(directory=directory, file=filename).replace('\\', '/')
+    else:
+        return 0
 
 
 # Get information from db about User
@@ -97,7 +102,7 @@ def get_user_info(username, model):
             )
         )
         return information
-    except:
+    except ObjectDoesNotExist:
         return 0
 
 
@@ -121,7 +126,8 @@ def index(request):
             'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
             'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
             'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
-            'resume': get_user_info('admin', CurriculumVitae)['resume']
+            'resume': get_user_info('admin', CurriculumVitae)['resume'],
+            'pp_exists': get_user_info('admin', CurriculumVitae)['pp_exists'],
         })
     else:
         return redirect('admin/login')
@@ -130,7 +136,7 @@ def index(request):
 def resume(request):
     try:
         current_user = User.objects.get(username='admin')
-    except:
+    except ObjectDoesNotExist:
         return redirect('admin/login')
 
     exp_list = list()
@@ -189,11 +195,29 @@ def resume(request):
 
 
 def portfolio(request):
+    try:
+        current_user = User.objects.get(username='admin')
+    except ObjectDoesNotExist:
+        return redirect('admin/login')
+
+    projects = list()
+    for i in Project.objects.filter(person_id=current_user.id):
+        projects.append(
+            [
+                i.project_name,
+                i.project_status,
+                i.project_description,
+                i.project_url,
+                i.project_image
+            ],
+        )
+
     return render(request, 'landing_page/portfolio/portfolio.html', {
         'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
         'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
         'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
         'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+        'projects': projects,
     })
 
 

@@ -41,6 +41,7 @@
     padding-bottom: 0;
     padding-left: 0 !important;
   }
+  .portfolio-body{padding: 25px;}
 }
 
 @media screen and (min-width: 300px){
@@ -95,6 +96,8 @@
 
   #contact-button button{width: 120px; height: 60px;}
 
+  .portfolio-body{padding: 25px;}
+
 }
 
 @media screen and (min-width: 380px){
@@ -146,6 +149,8 @@
   }
 
   #contact-button button{width: 120px; height: 60px;}
+
+  .portfolio-body{padding: 25px;}
 }
 
 @media screen and (min-width: 450px){
@@ -199,6 +204,8 @@
   }
 
   #contact-button {margin: 0 15px 0 0}
+
+  .portfolio-body{padding: 25px;}
 
 }
 
@@ -256,4 +263,6 @@
   #contact-button button{width: 240px; height: 80px;}
 
   .alert{width: 90%}
+
+  .portfolio-body{padding: 25px 75px 75px 75px}
 }

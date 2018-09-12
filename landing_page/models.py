@@ -9,17 +9,18 @@ import os
 
 
 def user_directory_path(instance, filename):
-    if os.path.isdir('{static}/profiles'.format(static=settings.STATIC_PATH)):
-        return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
-                                                               id=instance.id,
-                                                               filename=filename,
-                                                               )
-    else:
-        os.mkdir('{static}/profiles'.format(static=settings.STATIC_PATH))
-        return '{static}/profiles/user_{id}/{filename}'.format(static=settings.STATIC_PATH,
-                                                               id=instance.id,
-                                                               filename=filename,
-                                                               )
+    return '{media}/profiles/user_{id}/{filename}'.format(media=settings.MEDIA_ROOT,
+                                                          id=instance.person.id,
+                                                          filename=filename,
+                                                          )
+
+
+def project_image_path(instance, filename):
+    return 'projects/user_{id}/{project}/{filename}'.format(static=settings.MEDIA_ROOT,
+                                                            id=instance.person.id,
+                                                            project=instance.project_name,
+                                                            filename=filename,
+                                                            )
 
 
 # Create your models here.
@@ -122,3 +123,15 @@ class CurriculumVitae(models.Model):
             first_name=self.person.first_name,
             last_name=self.person.last_name,
         )
+
+
+class Project(models.Model):
+    person = models.ForeignKey(Creator, default='')
+    project_name = models.CharField(blank=False, max_length=100)
+    project_status = models.CharField(blank=False, max_length=100)
+    project_description = models.TextField(blank=True)
+    project_url = models.CharField(blank=False, max_length=100)
+    project_image = models.FileField(blank=True, max_length=1000, upload_to=project_image_path)
+
+    def __str__(self):
+        return '{} ({} {})'.format(self.project_name, self.person.first_name, self.person.last_name)

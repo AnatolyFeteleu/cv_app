@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Creator, CurriculumVitae, Company, Education, Language, Other
+from .models import Creator, CurriculumVitae, Company, Education, Language, Other, Project
 
 # Register your models here.
 admin.site.register(Creator)
@@ -8,3 +8,4 @@ admin.site.register(Company)
 admin.site.register(Education)
 admin.site.register(Other)
 admin.site.register(Language)
+admin.site.register(Project)
