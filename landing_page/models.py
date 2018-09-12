@@ -102,7 +102,7 @@ class CurriculumVitae(models.Model):
     person = models.ForeignKey(Creator, default='')
     freelance = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
     on_vacation = models.CharField(choices=YN_CHOICES, default=N, max_length=3)
-    vacation_till = models.DateField(blank=True)
+    vacation_till = models.DateField(blank=True, null=True)
     profile = models.FileField(blank=True, upload_to=user_directory_path)
     address = models.CharField(blank=False, max_length=1000)
     phone = PhoneNumberField()

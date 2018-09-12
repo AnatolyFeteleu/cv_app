@@ -4,7 +4,7 @@
 <div class="container" style="{% if on_vacation == 'Yes' %}margin-bottom: 85px;{% else %}margin-bottom: 125px;{% endif %}">
     <div class="col-md-6" style="display: inline-block; width: 100%; height: 100%; float: left; padding-top: 50px;">
         {% if pp_exists %}
-        <img class="img-fluid" src="media/{{ profile_picture }}" alt="Profile photo">
+        <img class="img-fluid" src="{{ MEDIA_URL }}{{ profile_picture }}" alt="Profile photo">
         {% else %}
         <img class="img-fluid" src="{% static 'img\profile_icon.png' %}" alt="Picture not found">
         {% endif %}
