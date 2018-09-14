@@ -43,7 +43,12 @@ class Education(models.Model):
     finished = models.DateField()
 
     def __str__(self):
-        return '{} ({})'.format(self.higher_education_institution, self.finished)
+        return '{hei} - {finished} ({first_name} {last_name})'.format(
+            hei=self.higher_education_institution,
+            finished=self.finished,
+            first_name=self.person.first_name,
+            last_name=self.person.last_name
+        )
 
 
 class Company(models.Model):
@@ -58,8 +63,10 @@ class Company(models.Model):
     experience_to = models.DateField()
 
     def __str__(self):
-        return '{company}'.format(
+        return '{company} ({first_name} {last_name})'.format(
             company=self.company_name,
+            first_name=self.person.first_name,
+            last_name=self.person.last_name
         )
 
 
@@ -70,7 +77,11 @@ class Language(models.Model):
     describe = models.TextField(blank=True)
 
     def __str__(self):
-        return '{} ({})'.format(self.person, self.name)
+        return '{first_name} {last_name} ({language})'.format(
+            first_name=self.person.first_name,
+            last_name=self.person.last_name,
+            language=self.name,
+        )
 
 
 class Other(models.Model):

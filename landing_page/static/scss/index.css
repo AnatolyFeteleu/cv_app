@@ -45,7 +45,7 @@ ul {
     margin-bottom: 35px;
     width: 30px;
     height: 30px;
-    fill: #f0f0f0;
+    fill: white;
     vertical-align: middle;
 }
 
@@ -253,6 +253,9 @@ ul {
     border-top-right-radius: 10px;
 }
 
+.cv-block a {color: black;}
+.cv-block a:hover {color: black;}
+
 .contact-block-col {
     padding-top: 25px;
     padding-right: 0;
@@ -390,3 +393,5 @@ ul {
 .close:hover {
     background: #00d9ff;
 }
+
+.form-control:focus {box-shadow: 0 0 0 0.2rem rgba(26, 127, 171, 0.1) !important; transition: 0.5s}

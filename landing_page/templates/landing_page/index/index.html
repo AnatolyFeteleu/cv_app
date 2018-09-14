@@ -12,7 +12,7 @@
     <div class="footer" style="background-color: #F0F0F0; padding-top: 50px">
         {% if resume %}
             <div class="col-md-12">
-                <div style="text-align: center"><button class="btn draw-border" onclick="location.href='{% static resume %}'">Download resume</button></div>
+                <div style="text-align: center"><button class="btn draw-border" onclick="location.href='{{ MEDIA_URL }}{{ resume }}'">Download resume</button></div>
             </div>
         <br>
         {% endif %}

@@ -36,7 +36,8 @@
 
 .hover7:hover .hover7__label:after,
 .hover7:focus .hover7__label:after{
-  background-color: #1a7fab;
+  background-color: #ff4444;
+  transition: 0.5s;
 }
 
 .hover7:hover, .hover7:focus{
