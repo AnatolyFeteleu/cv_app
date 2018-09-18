@@ -2,7 +2,7 @@
 personal cv created on django 1.11.3
 
 # modules
-django==1.11.3
+- django==1.11.3
 django-phonenumber-field
 djangorestframework
 django-inline-svg
