@@ -1,5 +1,5 @@
 # Application name: Personal landing application (cv_app)
-personal cv created on django 1.11.3
+created on django 1.11.3
 
 modules:
 - django==1.11.3
