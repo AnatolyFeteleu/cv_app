@@ -35,4 +35,4 @@ urlpatterns = [
     url(r'', include('landing_page.urls')),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Add route for media files
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Added route for media files

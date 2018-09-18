@@ -11,3 +11,4 @@ cv_app/settings.py_debug
 cv_app/env.txt
 cv_app/settings.py_backup
 landing_page/fixtures/initial_data.json
+chromedriver.exe

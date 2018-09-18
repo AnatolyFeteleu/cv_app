@@ -5,3 +5,4 @@ django-inline-svg
 python-dateutil
 django-multiselectfield
 requests
+selenium
