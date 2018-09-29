@@ -4,11 +4,11 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^administration/login/$', contrib_views.login, name='login'),
     url(r'^administration/logout/$', contrib_views.logout, name='logout', kwargs={'next_page': '/'}),
-    url(r'^cv/$', views.resume, name='cv'),
-    url(r'^portfolio/$', views.portfolio, name='portfolio'),
-    url(r'^contact/$', views.contact, name='contact'),
-    url(r'^thanks/$', views.thanks, name='thanks'),
+    url(r'^cv/$', views.ResumeView.as_view(), name='cv'),
+    url(r'^portfolio/$', views.PortfolioView.as_view(), name='portfolio'),
+    url(r'^contact/$', views.ContactView.as_view(), name='contact'),
+    url(r'^thanks/$', views.ThanksView.as_view(), name='thanks'),
 ]

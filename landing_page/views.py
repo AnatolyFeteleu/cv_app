@@ -8,13 +8,12 @@ from dateutil import relativedelta
 from .forms import EmailForm
 from django.core.mail import EmailMessage
 from django.conf import settings
-from django.http import HttpResponse
 from django.contrib import messages
+from django.views import View
 
 import datetime
 import requests
 import os
-
 
 User = get_user_model()
 YES_NO = dict(Y='Yes', N='No')
@@ -50,6 +49,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
 class EducationViewSet(viewsets.ModelViewSet):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
+
 
 # REST viewsets
 
@@ -108,122 +108,138 @@ def get_user_info(username, model):
 
 # Page views
 
-def index(request):
-    if get_user_info('admin', CurriculumVitae):
-        return render(request, 'landing_page/index/index.html', {
-            'firstname': get_user_info('admin', CurriculumVitae)['firstname'],
-            'lastname': get_user_info('admin', CurriculumVitae)['lastname'],
-            'phone': get_user_info('admin', CurriculumVitae)['phone'],
-            'legit_phone': get_user_info('admin', CurriculumVitae)['legit_phone'],
-            'email': get_user_info('admin', CurriculumVitae)['email'],
-            'age': get_user_info('admin', CurriculumVitae)['age'],
-            'address': get_user_info('admin', CurriculumVitae)['address'],
-            'freelance': YES_NO[get_user_info('admin', CurriculumVitae)['freelance']],
-            'on_vacation': YES_NO[get_user_info('admin', CurriculumVitae)['on_vacation']],
-            'vacation_till': get_user_info('admin', CurriculumVitae)['vacation_till'],
-            'profile_picture': get_user_info('admin', CurriculumVitae)['profile'],
+class IndexView(View):
+    def get(self, request):
+        if get_user_info('admin', CurriculumVitae):
+            return render(request, 'landing_page/index/index.html', {
+                'firstname': get_user_info('admin', CurriculumVitae)['firstname'],
+                'lastname': get_user_info('admin', CurriculumVitae)['lastname'],
+                'phone': get_user_info('admin', CurriculumVitae)['phone'],
+                'legit_phone': get_user_info('admin', CurriculumVitae)['legit_phone'],
+                'email': get_user_info('admin', CurriculumVitae)['email'],
+                'age': get_user_info('admin', CurriculumVitae)['age'],
+                'address': get_user_info('admin', CurriculumVitae)['address'],
+                'freelance': YES_NO[get_user_info('admin', CurriculumVitae)['freelance']],
+                'on_vacation': YES_NO[get_user_info('admin', CurriculumVitae)['on_vacation']],
+                'vacation_till': get_user_info('admin', CurriculumVitae)['vacation_till'],
+                'profile_picture': get_user_info('admin', CurriculumVitae)['profile'],
+                'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+                'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+                'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+                'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+                'resume': get_user_info('admin', CurriculumVitae)['resume'],
+                'pp_exists': get_user_info('admin', CurriculumVitae)['pp_exists'],
+            })
+        else:
+            return redirect('admin/login')
+
+
+class ResumeView(View):
+    def get(self, request):
+        try:
+            current_user = User.objects.get(username='admin')
+        except ObjectDoesNotExist:
+            return redirect('admin/login')
+
+        exp_list = list()
+        cv = CurriculumVitae.objects.get(person_id=current_user.id)
+        for i in Company.objects.filter(person_id=current_user.id):
+            exp_list.append([i.company_name,
+                             i.position,
+                             abs(relativedelta.relativedelta(i.experience_from, i.experience_to).years),
+                             abs(relativedelta.relativedelta(i.experience_from, i.experience_to).months),
+                             'http://{}'.format(i.url),
+                             i.about,
+                             i.experience_from,
+                             i.experience_to
+                             ])
+        edu_list = list()
+        for i in Education.objects.filter(person_id=current_user.id):
+            edu_list.append(
+                [
+                    i.higher_education_institution,
+                    i.status,
+                    i.finished,
+                ]
+            )
+        lang_list = list()
+        for i in Language.objects.filter(person_id=current_user.id):
+            lang_list.append(
+                [
+                    i.name,
+                    i.level,
+                    i.describe,
+                ]
+            )
+        other_list = list()
+        for i in Other.objects.filter(person_id=current_user.id):
+            other_list.append(
+                [
+                    i.citizenship,
+                    i.permissions,
+                    i.travel_to_work,
+                ]
+            )
+        # other_list = list(zip(*other_list))
+        return render(request, 'landing_page/resume/resume.html', {
+            'experience': exp_list,
+            'key_skills': cv.key_skills,
+            'about_me': cv.about_me,
+            'edu_list': edu_list,
+            'lang_list': lang_list,
+            'other': other_list,
             'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
             'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
             'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
             'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
-            'resume': get_user_info('admin', CurriculumVitae)['resume'],
-            'pp_exists': get_user_info('admin', CurriculumVitae)['pp_exists'],
         })
-    else:
-        return redirect('admin/login')
 
 
-def resume(request):
-    try:
-        current_user = User.objects.get(username='admin')
-    except ObjectDoesNotExist:
-        return redirect('admin/login')
+class PortfolioView(View):
+    def get(self, request):
+        try:
+            current_user = User.objects.get(username='admin')
+        except ObjectDoesNotExist:
+            return redirect('admin/login')
 
-    exp_list = list()
-    cv = CurriculumVitae.objects.get(person_id=current_user.id)
-    for i in Company.objects.filter(person_id=current_user.id):
-        exp_list.append([i.company_name,
-                         i.position,
-                         abs(relativedelta.relativedelta(i.experience_from, i.experience_to).years),
-                         abs(relativedelta.relativedelta(i.experience_from, i.experience_to).months),
-                         'http://{}'.format(i.url),
-                         i.about,
-                         i.experience_from,
-                         i.experience_to
-                         ])
-    edu_list = list()
-    for i in Education.objects.filter(person_id=current_user.id):
-        edu_list.append(
-            [
-                i.higher_education_institution,
-                i.status,
-                i.finished,
-            ]
-        )
-    lang_list = list()
-    for i in Language.objects.filter(person_id=current_user.id):
-        lang_list.append(
-            [
-                i.name,
-                i.level,
-                i.describe,
-            ]
-        )
-    other_list = list()
-    for i in Other.objects.filter(person_id=current_user.id):
-        other_list.append(
-            [
-                i.citizenship,
-                i.permissions,
-                i.travel_to_work,
-            ]
-        )
-    # other_list = list(zip(*other_list))
-    return render(request, 'landing_page/resume/resume.html', {
-        'experience': exp_list,
-        'key_skills': cv.key_skills,
-        'about_me': cv.about_me,
-        'edu_list': edu_list,
-        'lang_list': lang_list,
-        'other': other_list,
-        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
-        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
-        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
-        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
-    }
-                  )
+        projects = list()
+        for i in Project.objects.filter(person_id=current_user.id):
+            projects.append(
+                [
+                    i.project_name,
+                    i.project_status,
+                    i.project_description,
+                    i.project_url,
+                    i.project_image
+                ],
+            )
+
+        return render(request, 'landing_page/portfolio/portfolio.html', {
+            'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+            'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+            'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+            'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+            'projects': projects,
+        })
 
 
-def portfolio(request):
-    try:
-        current_user = User.objects.get(username='admin')
-    except ObjectDoesNotExist:
-        return redirect('admin/login')
+class ContactView(View):
+    form_class = EmailForm
+    template_name = 'landing_page/contact/contact.html'
 
-    projects = list()
-    for i in Project.objects.filter(person_id=current_user.id):
-        projects.append(
-            [
-                i.project_name,
-                i.project_status,
-                i.project_description,
-                i.project_url,
-                i.project_image
-            ],
-        )
+    def get(self, request):
+        form = EmailForm()
+        return render(
+            request, self.template_name, {
+                'form': form,
+                'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+                'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+                'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+                'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+            })
 
-    return render(request, 'landing_page/portfolio/portfolio.html', {
-        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
-        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
-        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
-        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
-        'projects': projects,
-    })
-
-
-def contact(request):
-    if request.method == 'POST':
-        form = EmailForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
             recipient_list = settings.DEFAULT_EMAIL
             subject = 'Django mailer - {}'.format(form.cleaned_data['subject'])
@@ -251,7 +267,7 @@ def contact(request):
                 subject=form.cleaned_data['subject'],
                 text=form.cleaned_data['text_field'],
                 signature=form.cleaned_data['email_field']
-                )
+            )
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             data = {
@@ -264,28 +280,27 @@ def contact(request):
 
             if result['success']:
                 mail = EmailMessage(
-                           subject,
-                           message,
-                           form.cleaned_data['email_field'],
-                           [recipient_list, ],
-                           reply_to=[form.cleaned_data['email_field'], ],
-                           headers={'Message-ID': 'Django offers'},
-                       )
+                    subject,
+                    message,
+                    form.cleaned_data['email_field'],
+                    [recipient_list, ],
+                    reply_to=[form.cleaned_data['email_field'], ],
+                    headers={'Message-ID': 'Django offers'},
+                )
                 mail.content_subtype = "html"
                 mail.send()
                 return redirect('thanks')
             else:
                 messages.error(request, result)
-    else:
-        form = EmailForm()
-    return render(request, 'landing_page/contact/contact.html', {
-        'form': form,
-        'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
-        'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
-        'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
-        'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
-    })
+        return render(request, 'landing_page/contact/contact.html', {
+            'form': form,
+            'skype': get_user_info('admin', CurriculumVitae)['socials']['skype'],
+            'linkedin': get_user_info('admin', CurriculumVitae)['socials']['linkedin'],
+            'twitter': get_user_info('admin', CurriculumVitae)['socials']['twitter'],
+            'facebook': get_user_info('admin', CurriculumVitae)['socials']['facebook'],
+        })
 
 
-def thanks(request):
-    return render(request, 'landing_page/contact/success/index.html')
+class ThanksView(View):
+    def get(self, request):
+        return render(request, 'landing_page/contact/success/index.html')
